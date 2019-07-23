@@ -19,7 +19,7 @@ export default {
     heading: "1.1",
   },
   sizes: {
-    container: 650,
+    container: 950,
   },
   styles: {
     Layout: {

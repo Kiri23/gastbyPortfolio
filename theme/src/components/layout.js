@@ -1,19 +1,10 @@
 import React from "react"
 import { css, Global } from "@emotion/core"
 import { Layout as StyledLayout, Header, Main, Container } from "theme-ui"
-import { graphql, useStaticQuery } from "gatsby"
+
+import Navigation from "./navigation"
 
 const Layout = ({ children }) => {
-  const data = useStaticQuery(graphql`
-    query {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-
   return (
     <StyledLayout>
       <Global
@@ -21,10 +12,24 @@ const Layout = ({ children }) => {
           body {
             margin: 0;
           }
+          nav {
+            margin: auto;
+            width: 850px;
+            padding: 32px;
+            display: flex;
+            justify-content: space-around;
+            a {
+              color: white;
+              text-decoration: none;
+            }
+            a[aria-current="page"] {
+              color: aquamarine;
+            }
+          }
         `}
       />
       <Header>
-        <span>{data.site.siteMetadata.title}</span>
+        <Navigation />
       </Header>
       <Main>
         <Container>{children}</Container>
