@@ -1,6 +1,8 @@
 const fs = require("fs")
 const mkdirp = require("mkdirp")
 const path = require("path")
+const crypto = require(`crypto`)
+const { urlResolve } = require(`gatsby-core-utils`)
 
 // Customizable theme options for site content base paths
 let blogBasePath
@@ -17,6 +19,8 @@ let referencesContentPath
 let servicesContentPath
 
 const PageTemplate = require.resolve("./src/templates/page.js")
+const BlogPostsTemplate = require.resolve("./src/templates/blog-posts.js")
+const BlogPostTemplate = require.resolve("./src/templates/blog-post.js")
 
 // Ensure that content directories exist
 exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
@@ -28,19 +32,21 @@ exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
   servicesBasePath = themeOptions.servicesBasePath || "/services"
 
   contentPath = themeOptions.contentPath || "content"
-  assetPath = themeOptions.assetPath || "assets"
-  blogContentPath = themeOptions.blocContentPath || "blog"
-  portfolioContentPath = themeOptions.portfolioContentPath || "portfolio"
-  referencesContentPath = themeOptions.referencesContentPath || "references"
-  servicesContentPath = themeOptions.servicesContentPath || "services"
+  assetPath = themeOptions.assetPath || "content/assets"
+  blogContentPath = themeOptions.blocContentPath || "content/blog"
+  portfolioContentPath =
+    themeOptions.portfolioContentPath || "content/portfolio"
+  referencesContentPath =
+    themeOptions.referencesContentPath || "content/references"
+  servicesContentPath = themeOptions.servicesContentPath || "content/services"
 
   const dirs = [
     path.join(program.directory, contentPath),
-    path.join(program.directory, contentPath, assetPath),
-    path.join(program.directory, contentPath, blogContentPath),
-    path.join(program.directory, contentPath, portfolioContentPath),
-    path.join(program.directory, contentPath, referencesContentPath),
-    path.join(program.directory, contentPath, servicesContentPath),
+    path.join(program.directory, assetPath),
+    path.join(program.directory, blogContentPath),
+    path.join(program.directory, portfolioContentPath),
+    path.join(program.directory, referencesContentPath),
+    path.join(program.directory, servicesContentPath),
   ]
 
   dirs.forEach(dir => {
@@ -51,8 +57,141 @@ exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
   })
 }
 
-exports.createPages = ({ actions, reporter }) => {
+const mdxResolverPassthrough = fieldName => async (
+  source,
+  args,
+  context,
+  info
+) => {
+  const type = info.schema.getType(`Mdx`)
+  const mdxNode = context.nodeModel.getNodeById({
+    id: source.parent,
+  })
+  const resolver = type.getFields()[fieldName].resolve
+  const result = await resolver(mdxNode, args, context, {
+    fieldName,
+  })
+  return result
+}
+exports.sourceNodes = ({ actions, schema }) => {
+  const { createTypes } = actions
+  createTypes(
+    schema.buildObjectType({
+      name: `BlogPost`,
+      fields: {
+        id: { type: `ID!` },
+        title: {
+          type: `String!`,
+        },
+        slug: {
+          type: `String!`,
+        },
+        date: { type: `Date`, extensions: { dateformat: {} } },
+        excerpt: {
+          type: `String!`,
+          args: {
+            pruneLength: {
+              type: `Int`,
+              defaultValue: 140,
+            },
+          },
+          resolve: mdxResolverPassthrough(`excerpt`),
+        },
+        body: {
+          type: `String!`,
+          resolve: mdxResolverPassthrough(`body`),
+        },
+      },
+      interfaces: [`Node`],
+    })
+  )
+}
+
+exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
+  const { createNode, createParentChildLink } = actions
+
+  const toPostPath = node => {
+    const { dir } = path.parse(node.relativePath)
+    const postPath = urlResolve(blogBasePath, dir, node.name)
+    return postPath
+  }
+
+  // Create nodes from Mdx files
+  if (node.internal.type === `Mdx`) {
+    const fileNode = getNode(node.parent)
+    const source = fileNode.sourceInstanceName
+
+    // Create blog post nodes
+    if (source === blogContentPath) {
+      const slug = toPostPath(fileNode)
+      const fieldData = {
+        title: node.frontmatter.title,
+        slug,
+        date: node.frontmatter.date,
+      }
+
+      createNode({
+        ...fieldData,
+        // Required fields
+        id: createNodeId(`${node.id} >>> BlogPost`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `BlogPost`,
+          contentDigest: crypto
+            .createHash("md5")
+            .update(JSON.stringify(fieldData))
+            .digest("hex"),
+          content: JSON.stringify(fieldData),
+          desciption: `Blog Posts`,
+        },
+      })
+      createParentChildLink({ parent: fileNode, child: node })
+    }
+  }
+}
+
+exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
+
+  const result = await graphql(`
+    query {
+      blogPosts: allBlogPost(sort: { fields: [date, title], order: DESC }) {
+        edges {
+          node {
+            id
+            slug
+            title
+            date(formatString: "DD MMM YYYY")
+            excerpt(pruneLength: 100)
+          }
+        }
+      }
+    }
+  `)
+
+  if (result.errors) {
+    reporter.panic(result.errors)
+  }
+
+  const { blogPosts } = result.data
+  const posts = blogPosts.edges
+
+  posts.forEach(({ node: post }, index) => {
+    const previous = index === posts.length - 1 ? null : posts[index + 1]
+    const next = index === 0 ? null : posts[index - 1]
+    const { slug } = post
+
+    createPage({
+      path: slug,
+      component: BlogPostTemplate,
+      context: {
+        id: post.id,
+        previous,
+        next,
+      },
+    })
+  })
 
   createPage({
     path: "/",
@@ -70,15 +209,11 @@ exports.createPages = ({ actions, reporter }) => {
 
   createPage({
     path: blogBasePath,
-    component: PageTemplate,
+    component: BlogPostsTemplate,
     context: {
       heading: "Blog",
       showInNavigation: true,
-      content: `
-        <p>
-          Your blog posts come here
-        </p>
-      `,
+      posts,
     },
   })
 
