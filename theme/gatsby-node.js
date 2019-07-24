@@ -1,9 +1,7 @@
 const fs = require("fs")
 const mkdirp = require("mkdirp")
 const path = require("path")
-const crypto = require(`crypto`)
 
-const toPath = require("./utils/toPath")
 const { createBlogPostType, createPortfolioType } = require("./utils/types")
 const { createBlogPostNode, createPortfolioNode } = require("./utils/nodes")
 
