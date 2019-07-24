@@ -34,6 +34,8 @@ const PortfolioTemplate = require.resolve("./src/templates/portfolio.js")
 const PortfolioItemTemplate = require.resolve(
   "./src/templates/portfolio-item.js"
 )
+const ReferencesTemplate = require.resolve("./src/templates/references.js")
+const ReferenceTemplate = require.resolve("./src/templates/reference.js")
 
 // Ensure that content directories exist
 exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
@@ -168,6 +170,26 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           }
         }
       }
+      references: allReference(
+        sort: { fields: [publishedDate, name], order: DESC }
+      ) {
+        edges {
+          node {
+            id
+            slug
+          }
+          previous {
+            id
+            slug
+            name
+          }
+          next {
+            id
+            slug
+            name
+          }
+        }
+      }
     }
   `)
 
@@ -175,7 +197,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panic(result.errors)
   }
 
-  const { blogPosts, portfolioItems } = result.data
+  const { blogPosts, portfolioItems, references } = result.data
 
   // Create pages for each post
   blogPosts.edges.forEach(({ node: post, previous, next }) => {
@@ -199,6 +221,21 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     createPage({
       path: slug,
       component: PortfolioItemTemplate,
+      context: {
+        id,
+        previous,
+        next,
+      },
+    })
+  })
+
+  // Create pages for each reference
+  references.edges.forEach(({ node: reference, previous, next }) => {
+    const { id, slug } = reference
+
+    createPage({
+      path: slug,
+      component: ReferenceTemplate,
       context: {
         id,
         previous,
@@ -245,15 +282,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   // Create references index page
   createPage({
     path: referencesBasePath,
-    component: PageTemplate,
+    component: ReferencesTemplate,
     context: {
       heading: "References",
       showInNavigation: true,
-      content: `
-        <p>
-          Your cool references show up here
-        </p>
-      `,
     },
   })
 

@@ -11,7 +11,7 @@ const createReferenceNode = (
 ) => {
   const slug = toPath(basePath, fileNode)
   const fieldData = {
-    title: node.frontmatter.title,
+    name: node.frontmatter.name,
     slug,
     publishedDate: node.frontmatter.publishedDate,
   }

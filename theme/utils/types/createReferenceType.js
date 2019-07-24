@@ -5,7 +5,7 @@ const createReferenceType = schema => {
     name: `Reference`,
     fields: {
       id: { type: `ID!` },
-      title: { type: `String!` },
+      name: { type: `String!` },
       slug: { type: `String!` },
       publishedDate: { type: `Date!`, extensions: { dateformat: {} } },
       excerpt: {
