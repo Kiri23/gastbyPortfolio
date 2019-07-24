@@ -15,13 +15,12 @@ const BlogPostTemplate = ({
         <MDXRenderer>{post.body}</MDXRenderer>
         {previous && (
           <span>
-            Previous post:{" "}
-            <Link to={previous.node.slug}>{previous.node.title}</Link>
+            Previous post: <Link to={previous.slug}>{previous.title}</Link>
           </span>
         )}
         {next && (
           <span>
-            Next post: <Link to={next.node.slug}>{next.node.title}</Link>
+            Next post: <Link to={next.slug}>{next.title}</Link>
           </span>
         )}
       </article>

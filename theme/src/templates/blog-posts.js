@@ -1,16 +1,20 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql, Link } from "gatsby"
+
 import Layout from "../components/layout"
 
-const BlogPostsTemplate = ({ pageContext: { posts } }) => {
+const BlogPostsTemplate = ({ data: { posts } }) => {
   return (
     <Layout>
       <h1>Blog</h1>
       <section>
-        {posts.map(({ node: post }) => (
-          <Link to={post.slug}>
-            <p>{post.title}</p>
-          </Link>
+        {posts.nodes.map(({ id, title, date, excerpt, slug }) => (
+          <article key={id}>
+            <h2>{title}</h2>
+            <p>{date}</p>
+            <p>{excerpt}</p>
+            <Link to={slug}>Read</Link>
+          </article>
         ))}
       </section>
     </Layout>
@@ -18,3 +22,17 @@ const BlogPostsTemplate = ({ pageContext: { posts } }) => {
 }
 
 export default BlogPostsTemplate
+
+export const query = graphql`
+  query {
+    posts: allBlogPost(sort: { fields: [date, title], order: DESC }) {
+      nodes {
+        id
+        slug
+        title
+        date(formatString: "DD MMM, YYYY")
+        excerpt(pruneLength: 140)
+      }
+    }
+  }
+`

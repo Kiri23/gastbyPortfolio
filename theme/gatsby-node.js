@@ -22,6 +22,10 @@ let servicesContentPath
 const PageTemplate = require.resolve("./src/templates/page.js")
 const BlogPostsTemplate = require.resolve("./src/templates/blog-posts.js")
 const BlogPostTemplate = require.resolve("./src/templates/blog-post.js")
+const PortfolioTemplate = require.resolve("./src/templates/portfolio.js")
+const PortfolioItemTemplate = require.resolve(
+  "./src/templates/portfolio-item.js"
+)
 
 // Ensure that content directories exist
 exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
@@ -107,9 +111,36 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           node {
             id
             slug
+          }
+          previous {
+            id
+            slug
             title
-            date(formatString: "DD MMM YYYY")
-            excerpt(pruneLength: 100)
+          }
+          next {
+            id
+            slug
+            title
+          }
+        }
+      }
+      portfolioItems: allPortfolioItem(
+        sort: { fields: [publishedDate, title], order: DESC }
+      ) {
+        edges {
+          node {
+            id
+            slug
+          }
+          previous {
+            id
+            slug
+            title
+          }
+          next {
+            id
+            slug
+            title
           }
         }
       }
@@ -120,25 +151,39 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panic(result.errors)
   }
 
-  const { blogPosts } = result.data
-  const posts = blogPosts.edges
+  const { blogPosts, portfolioItems } = result.data
 
-  posts.forEach(({ node: post }, index) => {
-    const previous = index === posts.length - 1 ? null : posts[index + 1]
-    const next = index === 0 ? null : posts[index - 1]
-    const { slug } = post
+  // Create pages for each post
+  blogPosts.edges.forEach(({ node: post, previous, next }) => {
+    const { id, slug } = post
 
     createPage({
       path: slug,
       component: BlogPostTemplate,
       context: {
-        id: post.id,
+        id,
         previous,
         next,
       },
     })
   })
 
+  // Create pages for each portfolio item
+  portfolioItems.edges.forEach(({ node: item, previous, next }) => {
+    const { id, slug } = item
+
+    createPage({
+      path: slug,
+      component: PortfolioItemTemplate,
+      context: {
+        id,
+        previous,
+        next,
+      },
+    })
+  })
+
+  // Create front page
   createPage({
     path: "/",
     component: PageTemplate,
@@ -153,30 +198,27 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     },
   })
 
+  // Create blog index page
   createPage({
     path: blogBasePath,
     component: BlogPostsTemplate,
     context: {
       heading: "Blog",
       showInNavigation: true,
-      posts,
     },
   })
 
+  // Create portfolio index page
   createPage({
     path: portfolioBasePath,
-    component: PageTemplate,
+    component: PortfolioTemplate,
     context: {
       heading: "Portfolio",
       showInNavigation: true,
-      content: `
-        <p>
-          Showcase of your stuff comes here
-        </p>
-      `,
     },
   })
 
+  // Create references index page
   createPage({
     path: referencesBasePath,
     component: PageTemplate,
@@ -191,6 +233,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     },
   })
 
+  // Create services index page
   createPage({
     path: servicesBasePath,
     component: PageTemplate,
