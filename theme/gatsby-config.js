@@ -26,6 +26,13 @@ module.exports = options => ({
     {
       resolve: "gatsby-source-filesystem",
       options: {
+        path: options.assetPath || "content/assets",
+        name: options.assetPath || "content/assets",
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
         path: options.blogContentPath || "content/blog",
         name: options.blogContentPath || "content/blog",
       },
@@ -35,6 +42,20 @@ module.exports = options => ({
       options: {
         path: options.portfolioContentPath || "content/portfolio",
         name: options.portFolioContentPath || "content/portfolio",
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: options.referencesContentPath || "content/references",
+        name: options.referencesContentPath || "content/references",
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: options.servicesContentPath || "content/services",
+        name: options.servicesContentPath || "content/services",
       },
     },
     `gatsby-transformer-sharp`,
