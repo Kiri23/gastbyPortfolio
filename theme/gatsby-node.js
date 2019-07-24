@@ -4,7 +4,7 @@ const path = require("path")
 const crypto = require(`crypto`)
 const { urlResolve } = require(`gatsby-core-utils`)
 
-const { createBlogPostType } = require("./types")
+const { createBlogPostType, createPortfolioType } = require("./types")
 
 // Customizable theme options for site content base paths
 let blogBasePath
@@ -61,15 +61,15 @@ exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
 
 exports.sourceNodes = ({ actions, schema }) => {
   const { createTypes } = actions
-  createTypes(createBlogPostType(schema))
+  createTypes(createBlogPostType(schema), createPortfolioType(schema))
 }
 
 exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
   const { createNode, createParentChildLink } = actions
 
-  const toPostPath = node => {
+  const toPath = (basePath, node) => {
     const { dir } = path.parse(node.relativePath)
-    const postPath = urlResolve(blogBasePath, dir, node.name)
+    const postPath = urlResolve(basePath, dir, node.name)
     return postPath
   }
 
@@ -80,7 +80,7 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
 
     // Create blog post nodes
     if (source === blogContentPath) {
-      const slug = toPostPath(fileNode)
+      const slug = toPath(blogBasePath, fileNode)
       const fieldData = {
         title: node.frontmatter.title,
         slug,
@@ -101,6 +101,34 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
             .digest("hex"),
           content: JSON.stringify(fieldData),
           desciption: `Blog Posts`,
+        },
+      })
+      createParentChildLink({ parent: fileNode, child: node })
+    }
+
+    // Create portfolio item nodes
+    if (source === portfolioContentPath) {
+      const slug = toPath(portfolioBasePath, fileNode)
+      const fieldData = {
+        title: node.frontmatter.title,
+        slug,
+        publishedDate: node.frontmatter.publishedDate,
+      }
+
+      createNode({
+        ...fieldData,
+        // Required fields
+        id: createNodeId(`${node.id} >>> PortfolioItem`),
+        parent: node.id,
+        children: [],
+        internal: {
+          type: `PortfolioItem`,
+          contentDigest: crypto
+            .createHash("md5")
+            .update(JSON.stringify(fieldData))
+            .digest("hex"),
+          content: JSON.stringify(fieldData),
+          desciption: `Portfolio items`,
         },
       })
       createParentChildLink({ parent: fileNode, child: node })

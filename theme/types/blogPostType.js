@@ -20,13 +20,9 @@ const createBlogPostType = schema => {
     name: `BlogPost`,
     fields: {
       id: { type: `ID!` },
-      title: {
-        type: `String!`,
-      },
-      slug: {
-        type: `String!`,
-      },
-      date: { type: `Date`, extensions: { dateformat: {} } },
+      title: { type: `String!` },
+      slug: { type: `String!` },
+      date: { type: `Date!`, extensions: { dateformat: {} } },
       excerpt: {
         type: `String!`,
         args: {
