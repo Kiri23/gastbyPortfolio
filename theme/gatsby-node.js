@@ -64,7 +64,7 @@ exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
 
 exports.sourceNodes = ({ actions, schema }) => {
   const { createTypes } = actions
-  createTypes(createBlogPostType(schema), createPortfolioType(schema))
+  createTypes([createBlogPostType(schema), createPortfolioType(schema)])
 }
 
 exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
