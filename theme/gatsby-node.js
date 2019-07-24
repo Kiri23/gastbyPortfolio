@@ -2,8 +2,16 @@ const fs = require("fs")
 const mkdirp = require("mkdirp")
 const path = require("path")
 
-const { createBlogPostType, createPortfolioType } = require("./utils/types")
-const { createBlogPostNode, createPortfolioNode } = require("./utils/nodes")
+const {
+  createBlogPostType,
+  createPortfolioType,
+  createReferenceType,
+} = require("./utils/types")
+const {
+  createBlogPostNode,
+  createPortfolioNode,
+  createReferenceNode,
+} = require("./utils/nodes")
 
 // Customizable theme options for site content base paths
 let blogBasePath
@@ -64,7 +72,11 @@ exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
 
 exports.sourceNodes = ({ actions, schema }) => {
   const { createTypes } = actions
-  createTypes([createBlogPostType(schema), createPortfolioType(schema)])
+  createTypes([
+    createBlogPostType(schema),
+    createPortfolioType(schema),
+    createReferenceType(schema),
+  ])
 }
 
 exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
@@ -91,6 +103,18 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
     if (source === portfolioContentPath) {
       createPortfolioNode(
         portfolioBasePath,
+        node,
+        fileNode,
+        createNode,
+        createNodeId,
+        createParentChildLink
+      )
+    }
+
+    // Create reference item nodes
+    if (source === referencesContentPath) {
+      createReferenceNode(
+        referencesBasePath,
         node,
         fileNode,
         createNode,
