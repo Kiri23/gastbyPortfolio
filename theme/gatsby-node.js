@@ -4,6 +4,8 @@ const path = require("path")
 const crypto = require(`crypto`)
 const { urlResolve } = require(`gatsby-core-utils`)
 
+const { createBlogPostType } = require("./types")
+
 // Customizable theme options for site content base paths
 let blogBasePath
 let portfolioBasePath
@@ -57,54 +59,9 @@ exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
   })
 }
 
-const mdxResolverPassthrough = fieldName => async (
-  source,
-  args,
-  context,
-  info
-) => {
-  const type = info.schema.getType(`Mdx`)
-  const mdxNode = context.nodeModel.getNodeById({
-    id: source.parent,
-  })
-  const resolver = type.getFields()[fieldName].resolve
-  const result = await resolver(mdxNode, args, context, {
-    fieldName,
-  })
-  return result
-}
 exports.sourceNodes = ({ actions, schema }) => {
   const { createTypes } = actions
-  createTypes(
-    schema.buildObjectType({
-      name: `BlogPost`,
-      fields: {
-        id: { type: `ID!` },
-        title: {
-          type: `String!`,
-        },
-        slug: {
-          type: `String!`,
-        },
-        date: { type: `Date`, extensions: { dateformat: {} } },
-        excerpt: {
-          type: `String!`,
-          args: {
-            pruneLength: {
-              type: `Int`,
-              defaultValue: 140,
-            },
-          },
-          resolve: mdxResolverPassthrough(`excerpt`),
-        },
-        body: {
-          type: `String!`,
-          resolve: mdxResolverPassthrough(`body`),
-        },
-      },
-      interfaces: [`Node`],
-    })
-  )
+  createTypes(createBlogPostType(schema))
 }
 
 exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
