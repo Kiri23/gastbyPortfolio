@@ -2,9 +2,10 @@ const fs = require("fs")
 const mkdirp = require("mkdirp")
 const path = require("path")
 const crypto = require(`crypto`)
-const { urlResolve } = require(`gatsby-core-utils`)
 
-const { createBlogPostType, createPortfolioType } = require("./types")
+const toPath = require("./utils/toPath")
+const { createBlogPostType, createPortfolioType } = require("./utils/types")
+const { createBlogPostNode, createPortfolioNode } = require("./utils/nodes")
 
 // Customizable theme options for site content base paths
 let blogBasePath
@@ -67,12 +68,6 @@ exports.sourceNodes = ({ actions, schema }) => {
 exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
   const { createNode, createParentChildLink } = actions
 
-  const toPath = (basePath, node) => {
-    const { dir } = path.parse(node.relativePath)
-    const postPath = urlResolve(basePath, dir, node.name)
-    return postPath
-  }
-
   // Create nodes from Mdx files
   if (node.internal.type === `Mdx`) {
     const fileNode = getNode(node.parent)
@@ -80,58 +75,26 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
 
     // Create blog post nodes
     if (source === blogContentPath) {
-      const slug = toPath(blogBasePath, fileNode)
-      const fieldData = {
-        title: node.frontmatter.title,
-        slug,
-        date: node.frontmatter.date,
-      }
-
-      createNode({
-        ...fieldData,
-        // Required fields
-        id: createNodeId(`${node.id} >>> BlogPost`),
-        parent: node.id,
-        children: [],
-        internal: {
-          type: `BlogPost`,
-          contentDigest: crypto
-            .createHash("md5")
-            .update(JSON.stringify(fieldData))
-            .digest("hex"),
-          content: JSON.stringify(fieldData),
-          desciption: `Blog Posts`,
-        },
-      })
-      createParentChildLink({ parent: fileNode, child: node })
+      createBlogPostNode(
+        blogBasePath,
+        node,
+        fileNode,
+        createNode,
+        createNodeId,
+        createParentChildLink
+      )
     }
 
     // Create portfolio item nodes
     if (source === portfolioContentPath) {
-      const slug = toPath(portfolioBasePath, fileNode)
-      const fieldData = {
-        title: node.frontmatter.title,
-        slug,
-        publishedDate: node.frontmatter.publishedDate,
-      }
-
-      createNode({
-        ...fieldData,
-        // Required fields
-        id: createNodeId(`${node.id} >>> PortfolioItem`),
-        parent: node.id,
-        children: [],
-        internal: {
-          type: `PortfolioItem`,
-          contentDigest: crypto
-            .createHash("md5")
-            .update(JSON.stringify(fieldData))
-            .digest("hex"),
-          content: JSON.stringify(fieldData),
-          desciption: `Portfolio items`,
-        },
-      })
-      createParentChildLink({ parent: fileNode, child: node })
+      createPortfolioNode(
+        portfolioBasePath,
+        node,
+        fileNode,
+        createNode,
+        createNodeId,
+        createParentChildLink
+      )
     }
   }
 }
