@@ -8,6 +8,7 @@ export default {
     text: "#232129",
     background: "#fff",
     primary: "#639",
+    heading: "#232129",
   },
   fonts: {
     default:
@@ -21,6 +22,7 @@ export default {
   sizes: {
     container: 950,
   },
+  space: [0, 8, 16, 32, 64],
   styles: {
     Layout: {
       backgroundColor: "background",
@@ -54,7 +56,7 @@ export default {
       paddingTop: 3,
     },
     h1: {
-      color: "text",
+      color: "heading",
       fontSize: 5,
       lineHeight: "heading",
     },

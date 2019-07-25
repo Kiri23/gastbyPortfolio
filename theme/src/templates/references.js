@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
@@ -6,12 +7,12 @@ import Layout from "../components/layout"
 const ReferencesTemplate = ({ data: { references } }) => {
   return (
     <Layout>
-      <h1>References</h1>
+      <Styled.h1>References</Styled.h1>
       <section>
         {references.nodes.map(({ id, slug, name, excerpt }) => (
           <article key={id}>
-            <h2>{name}</h2>
-            <p>{excerpt}</p>
+            <Styled.h2>{name}</Styled.h2>
+            <Styled.p>{excerpt}</Styled.p>
             <Link to={slug}>Read more</Link>
           </article>
         ))}

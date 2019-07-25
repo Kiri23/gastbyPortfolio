@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
@@ -12,8 +13,8 @@ const PortfolioItemTemplate = ({
   return (
     <Layout>
       <article>
-        <h1>{title}</h1>
-        <p>Published: {publishedDate}</p>
+        <Styled.h1>{title}</Styled.h1>
+        <Styled.p>Published: {publishedDate}</Styled.p>
         <MDXRenderer>{body}</MDXRenderer>
         {previous && (
           <span>

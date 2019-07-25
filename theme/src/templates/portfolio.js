@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
@@ -6,11 +7,12 @@ import Layout from "../components/layout"
 const PortfolioTemplate = ({ data: { items } }) => {
   return (
     <Layout>
-      <h1>Portfolio</h1>
+      <Styled.h1>Portfolio</Styled.h1>
       <section>
-        {items.nodes.map(({ id, slug, title }) => (
+        {items.nodes.map(({ id, slug, title, excerpt }) => (
           <article key={id}>
-            <h2>{title}</h2>
+            <Styled.h2>{title}</Styled.h2>
+            <Styled.p>{excerpt}</Styled.p>
             <Link to={slug}>Read more</Link>
           </article>
         ))}
@@ -30,6 +32,7 @@ export const query = graphql`
         id
         slug
         title
+        excerpt
       }
     }
   }

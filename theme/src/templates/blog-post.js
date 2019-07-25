@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
@@ -11,7 +12,7 @@ const BlogPostTemplate = ({
   return (
     <Layout>
       <article>
-        <h1>{post.title}</h1>
+        <Styled.h1>{post.title}</Styled.h1>
         <MDXRenderer>{post.body}</MDXRenderer>
         {previous && (
           <span>

@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
@@ -12,7 +13,7 @@ const ServiceTemplate = ({
 
   return (
     <Layout>
-      <h1>{title}</h1>
+      <Styled.h1>{title}</Styled.h1>
       <MDXRenderer>{body}</MDXRenderer>
       {previous && (
         <span>

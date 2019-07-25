@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
@@ -6,12 +7,12 @@ import Layout from "../components/layout"
 const ServicesTemplate = ({ data: { services } }) => {
   return (
     <Layout>
-      <h1>Services</h1>
+      <Styled.h1>Services</Styled.h1>
       <section>
         {services.nodes.map(({ id, title, slug, excerpt }) => (
           <article key={id}>
-            <h2>{title}</h2>
-            <p>{excerpt}</p>
+            <Styled.h2>{title}</Styled.h2>
+            <Styled.p>{excerpt}</Styled.p>
             <Link to={slug}>Read more</Link>
           </article>
         ))}
