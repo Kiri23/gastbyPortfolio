@@ -15,6 +15,16 @@ const PortfolioItemTemplate = ({
         <h1>{title}</h1>
         <p>Published: {publishedDate}</p>
         <MDXRenderer>{body}</MDXRenderer>
+        {previous && (
+          <span>
+            Previous: <Link to={previous.slug}>{previous.title}</Link>
+          </span>
+        )}
+        {next && (
+          <span>
+            Next: <Link to={next.slug}>{next.title}</Link>
+          </span>
+        )}
       </article>
     </Layout>
   )
