@@ -8,26 +8,26 @@ const {
   createReferenceType,
   createServiceType,
 } = require("./utils/types")
-const {
-  createBlogPostNode,
-  createPortfolioNode,
-  createReferenceNode,
-  createServiceNode,
-} = require("./utils/nodes")
 
-// Customizable theme options for site content base paths
-let blogBasePath
-let portfolioBasePath
-let referencesBasePath
-let servicesBasePath
+const createMdxNode = require("./utils/createMdxNode")
 
-// Customizable theme options for site content directories
-let contentPath
-let assetPath
-let blogContentPath
-let portfolioContentPath
-let referencesContentPath
-let servicesContentPath
+// // Customizable theme options for site content base paths
+// let blogBasePath
+// let portfolioBasePath
+// let referencesBasePath
+// let servicesBasePath
+
+const basePaths = {}
+
+// // Customizable theme options for site content directories
+// let contentPath
+// let assetPath
+// let blogContentPath
+// let portfolioContentPath
+// let referencesContentPath
+// let servicesContentPath
+
+const contentPaths = {}
 
 const PageTemplate = require.resolve("./src/templates/page.js")
 const BlogPostsTemplate = require.resolve("./src/templates/blog-posts.js")
@@ -45,27 +45,29 @@ const ServiceTemplate = require.resolve("./src/templates/service.js")
 exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
   const { program } = store.getState()
 
-  blogBasePath = themeOptions.blogBasePath || "/blog"
-  portfolioBasePath = themeOptions.portfolioBasePath || "/portfolio"
-  referencesBasePath = themeOptions.referencesBasePath || "/references"
-  servicesBasePath = themeOptions.servicesBasePath || "/services"
+  basePaths.blogBasePath = themeOptions.blogBasePath || "/blog"
+  basePaths.portfolioBasePath = themeOptions.portfolioBasePath || "/portfolio"
+  basePaths.referencesBasePath =
+    themeOptions.referencesBasePath || "/references"
+  basePaths.servicesBasePath = themeOptions.servicesBasePath || "/services"
 
-  contentPath = themeOptions.contentPath || "content"
-  assetPath = themeOptions.assetPath || "content/assets"
-  blogContentPath = themeOptions.blocContentPath || "content/blog"
-  portfolioContentPath =
+  contentPaths.contentPath = themeOptions.contentPath || "content"
+  contentPaths.assetPath = themeOptions.assetPath || "content/assets"
+  contentPaths.blogContentPath = themeOptions.blocContentPath || "content/blog"
+  contentPaths.portfolioContentPath =
     themeOptions.portfolioContentPath || "content/portfolio"
-  referencesContentPath =
+  contentPaths.referencesContentPath =
     themeOptions.referencesContentPath || "content/references"
-  servicesContentPath = themeOptions.servicesContentPath || "content/services"
+  contentPaths.servicesContentPath =
+    themeOptions.servicesContentPath || "content/services"
 
   const dirs = [
-    path.join(program.directory, contentPath),
-    path.join(program.directory, assetPath),
-    path.join(program.directory, blogContentPath),
-    path.join(program.directory, portfolioContentPath),
-    path.join(program.directory, referencesContentPath),
-    path.join(program.directory, servicesContentPath),
+    path.join(program.directory, contentPaths.contentPath),
+    path.join(program.directory, contentPaths.assetPath),
+    path.join(program.directory, contentPaths.blogContentPath),
+    path.join(program.directory, contentPaths.portfolioContentPath),
+    path.join(program.directory, contentPaths.referencesContentPath),
+    path.join(program.directory, contentPaths.servicesContentPath),
   ]
 
   dirs.forEach(dir => {
@@ -86,61 +88,11 @@ exports.sourceNodes = ({ actions, schema }) => {
   ])
 }
 
-exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
-  const { createNode, createParentChildLink } = actions
-
+exports.onCreateNode = helpers => {
+  const { node } = helpers
   // Create nodes from Mdx files
   if (node.internal.type === `Mdx`) {
-    const fileNode = getNode(node.parent)
-    const source = fileNode.sourceInstanceName
-
-    // Create blog post nodes
-    if (source === blogContentPath) {
-      createBlogPostNode(
-        blogBasePath,
-        node,
-        fileNode,
-        createNode,
-        createNodeId,
-        createParentChildLink
-      )
-    }
-
-    // Create portfolio item nodes
-    if (source === portfolioContentPath) {
-      createPortfolioNode(
-        portfolioBasePath,
-        node,
-        fileNode,
-        createNode,
-        createNodeId,
-        createParentChildLink
-      )
-    }
-
-    // Create reference item nodes
-    if (source === referencesContentPath) {
-      createReferenceNode(
-        referencesBasePath,
-        node,
-        fileNode,
-        createNode,
-        createNodeId,
-        createParentChildLink
-      )
-    }
-
-    // Create service nodes
-    if (source === servicesContentPath) {
-      createServiceNode(
-        servicesBasePath,
-        node,
-        fileNode,
-        createNode,
-        createNodeId,
-        createParentChildLink
-      )
-    }
+    createMdxNode(helpers, contentPaths, basePaths)
   }
 }
 
@@ -311,7 +263,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   // Create blog index page
   createPage({
-    path: blogBasePath,
+    path: basePaths.blogBasePath,
     component: BlogPostsTemplate,
     context: {
       heading: "Blog",
@@ -321,7 +273,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   // Create portfolio index page
   createPage({
-    path: portfolioBasePath,
+    path: basePaths.portfolioBasePath,
     component: PortfolioTemplate,
     context: {
       heading: "Portfolio",
@@ -331,7 +283,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   // Create references index page
   createPage({
-    path: referencesBasePath,
+    path: basePaths.referencesBasePath,
     component: ReferencesTemplate,
     context: {
       heading: "References",
@@ -341,7 +293,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   // Create services index page
   createPage({
-    path: servicesBasePath,
+    path: basePaths.servicesBasePath,
     component: ServicesTemplate,
     context: {
       heading: "Services",
