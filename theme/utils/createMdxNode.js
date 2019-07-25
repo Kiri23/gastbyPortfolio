@@ -80,6 +80,7 @@ const createMdxNode = (helpers, contentPaths, basePaths) => {
     const fieldData = {
       title: node.frontmatter.title,
       slug,
+      illustration: node.frontmatter.illustration,
     }
     createAndLinkNode("Service", fieldData)
   }

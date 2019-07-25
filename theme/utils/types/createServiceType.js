@@ -7,6 +7,7 @@ const createServiceType = schema => {
       id: { type: `ID!` },
       title: { type: `String!` },
       slug: { type: `String!` },
+      illustration: { type: `File!` },
       excerpt: {
         type: `String!`,
         args: {
