@@ -8,6 +8,7 @@ const createBlogPostType = schema => {
       title: { type: `String!` },
       slug: { type: `String!` },
       date: { type: `Date!`, extensions: { dateformat: {} } },
+      cover: { type: `File` },
       excerpt: {
         type: `String!`,
         args: {

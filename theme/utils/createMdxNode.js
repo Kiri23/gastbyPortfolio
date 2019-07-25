@@ -47,6 +47,7 @@ const createMdxNode = (helpers, contentPaths, basePaths) => {
       title: node.frontmatter.title,
       slug,
       date: node.frontmatter.date,
+      cover: node.frontmatter.cover,
     }
     createAndLinkNode("BlogPost", fieldData)
   }
