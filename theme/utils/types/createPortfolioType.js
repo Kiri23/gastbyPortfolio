@@ -8,6 +8,7 @@ const createPortfolioType = schema => {
       title: { type: `String!` },
       slug: { type: `String!` },
       publishedDate: { type: `Date!`, extensions: { dateformat: {} } },
+      screenshot: { type: `File!` },
       excerpt: {
         type: `String!`,
         args: {

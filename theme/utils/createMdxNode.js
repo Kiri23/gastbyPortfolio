@@ -59,6 +59,7 @@ const createMdxNode = (helpers, contentPaths, basePaths) => {
       title: node.frontmatter.title,
       slug,
       publishedDate: node.frontmatter.publishedDate,
+      screenshot: node.frontmatter.screenshot,
     }
     createAndLinkNode("PortfolioItem", fieldData)
   }
