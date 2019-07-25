@@ -6,11 +6,13 @@ const {
   createBlogPostType,
   createPortfolioType,
   createReferenceType,
+  createServiceType,
 } = require("./utils/types")
 const {
   createBlogPostNode,
   createPortfolioNode,
   createReferenceNode,
+  createServiceNode,
 } = require("./utils/nodes")
 
 // Customizable theme options for site content base paths
@@ -36,6 +38,8 @@ const PortfolioItemTemplate = require.resolve(
 )
 const ReferencesTemplate = require.resolve("./src/templates/references.js")
 const ReferenceTemplate = require.resolve("./src/templates/reference.js")
+const ServicesTemplate = require.resolve("./src/templates/services.js")
+const ServiceTemplate = require.resolve("./src/templates/service.js")
 
 // Ensure that content directories exist
 exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
@@ -78,6 +82,7 @@ exports.sourceNodes = ({ actions, schema }) => {
     createBlogPostType(schema),
     createPortfolioType(schema),
     createReferenceType(schema),
+    createServiceType(schema),
   ])
 }
 
@@ -117,6 +122,18 @@ exports.onCreateNode = ({ node, actions, getNode, createNodeId }) => {
     if (source === referencesContentPath) {
       createReferenceNode(
         referencesBasePath,
+        node,
+        fileNode,
+        createNode,
+        createNodeId,
+        createParentChildLink
+      )
+    }
+
+    // Create service nodes
+    if (source === servicesContentPath) {
+      createServiceNode(
+        servicesBasePath,
         node,
         fileNode,
         createNode,
@@ -190,6 +207,24 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           }
         }
       }
+      services: allService {
+        edges {
+          node {
+            id
+            slug
+          }
+          previous {
+            id
+            slug
+            title
+          }
+          next {
+            id
+            slug
+            title
+          }
+        }
+      }
     }
   `)
 
@@ -197,7 +232,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     reporter.panic(result.errors)
   }
 
-  const { blogPosts, portfolioItems, references } = result.data
+  const { blogPosts, portfolioItems, references, services } = result.data
 
   // Create pages for each post
   blogPosts.edges.forEach(({ node: post, previous, next }) => {
@@ -236,6 +271,21 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     createPage({
       path: slug,
       component: ReferenceTemplate,
+      context: {
+        id,
+        previous,
+        next,
+      },
+    })
+  })
+
+  // Create pages for each service
+  services.edges.forEach(({ node: service, previous, next }) => {
+    const { id, slug } = service
+
+    createPage({
+      path: slug,
+      component: ServiceTemplate,
       context: {
         id,
         previous,
@@ -292,15 +342,10 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   // Create services index page
   createPage({
     path: servicesBasePath,
-    component: PageTemplate,
+    component: ServicesTemplate,
     context: {
       heading: "Services",
       showInNavigation: true,
-      content: `
-        <p>
-          Show here what you can offer to customers
-        </p>
-      `,
     },
   })
 }
