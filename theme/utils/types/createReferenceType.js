@@ -8,6 +8,7 @@ const createReferenceType = schema => {
       name: { type: `String!` },
       slug: { type: `String!` },
       publishedDate: { type: `Date!`, extensions: { dateformat: {} } },
+      image: { type: `File!` },
       excerpt: {
         type: `String!`,
         args: {

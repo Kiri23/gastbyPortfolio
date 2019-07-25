@@ -71,6 +71,7 @@ const createMdxNode = (helpers, contentPaths, basePaths) => {
       name: node.frontmatter.name,
       slug,
       publishedDate: node.frontmatter.publishedDate,
+      image: node.frontmatter.image,
     }
     createAndLinkNode("Reference", fieldData)
   }
