@@ -9,16 +9,11 @@ import References from "../components/sections/reference-section"
 import Services from "../components/sections/service-section"
 
 const FrontpageTemplate = ({ data }) => {
-  const { frontpageYaml, posts, portfolio, references, services } = data
-  const { title, subtitle, image, imageAltText } = frontpageYaml
+  const { hero, posts, portfolio, references, services } = data
 
   return (
     <Layout>
-      <Hero
-        title={title}
-        subtitle={subtitle}
-        image={{ ...image, imageAltText }}
-      />
+      <Hero {...hero} />
       <Blog posts={posts.nodes} />
       <Portfolio items={portfolio.nodes} />
       <References references={references.nodes} />
@@ -31,13 +26,8 @@ export default FrontpageTemplate
 
 export const query = graphql`
   query {
-    frontpageYaml {
-      title
-      subtitle
-      image {
-        ...ImageFragment
-      }
-      imageAltText
+    hero: heroYaml {
+      ...HeroFields
     }
     posts: allBlogPost(sort: { fields: [date, title], order: DESC }, limit: 3) {
       nodes {

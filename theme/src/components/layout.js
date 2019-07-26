@@ -6,45 +6,49 @@ import {
   Main,
   Container,
   Footer as StyledFooter,
+  ThemeProvider,
 } from "theme-ui"
+import theme from "gatsby-plugin-theme-ui"
 
 import Navigation from "./navigation"
 import Footer from "./footer.js"
 
 const Layout = ({ children }) => {
   return (
-    <StyledLayout>
-      <Global
-        styles={css`
-          body {
-            margin: 0;
-          }
-          nav {
-            margin: auto;
-            width: 850px;
-            padding: 32px;
-            display: flex;
-            justify-content: space-around;
-            a {
-              color: white;
-              text-decoration: none;
+    <ThemeProvider theme={theme}>
+      <StyledLayout>
+        <Global
+          styles={css`
+            body {
+              margin: 0;
             }
-            a[aria-current="page"] {
-              color: aquamarine;
+            nav {
+              margin: auto;
+              width: 850px;
+              padding: 32px;
+              display: flex;
+              justify-content: space-around;
+              a {
+                color: white;
+                text-decoration: none;
+              }
+              a[aria-current="page"] {
+                color: aquamarine;
+              }
             }
-          }
-        `}
-      />
-      <Header>
-        <Navigation />
-      </Header>
-      <Main>
-        <Container>{children}</Container>
-      </Main>
-      <StyledFooter>
-        <Footer />
-      </StyledFooter>
-    </StyledLayout>
+          `}
+        />
+        <Header>
+          <Navigation />
+        </Header>
+        <Main>
+          <Container>{children}</Container>
+        </Main>
+        <StyledFooter>
+          <Footer />
+        </StyledFooter>
+      </StyledLayout>
+    </ThemeProvider>
   )
 }
 
