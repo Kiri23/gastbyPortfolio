@@ -16,7 +16,9 @@ const BlogPostsTemplate = ({ data: { posts } }) => {
             <Styled.h2>{title}</Styled.h2>
             <Styled.p>{date}</Styled.p>
             <Styled.p>{excerpt}</Styled.p>
-            <Link to={slug}>Read</Link>
+            <Styled.a as={Link} to={slug}>
+              Read
+            </Styled.a>
           </article>
         ))}
       </section>

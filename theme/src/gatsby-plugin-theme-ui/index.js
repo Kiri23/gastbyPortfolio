@@ -12,13 +12,38 @@ export default {
     muted: "#535159",
   },
   fonts: {
-    default:
+    body:
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
+    heading: '"Avenir Next", Roboto, Helvetica, sans-serif',
   },
-  fontSizes: [14, 18, 20, 22, 27, 36],
+  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
+  fontWeights: {
+    body: 400,
+    heading: 900,
+    bold: 700,
+  },
   lineHeights: {
     text: "1.45",
     heading: "1.1",
+  },
+  textStyles: {
+    body: {
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body",
+      fontSize: 3,
+    },
+    heading: {
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "heading",
+    },
+    display: {
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "1.3",
+      fontSize: 7,
+    },
   },
   sizes: {
     container: 950,
@@ -57,9 +82,35 @@ export default {
       paddingTop: 3,
     },
     h1: {
-      color: "heading",
+      variant: "textStyles.heading",
+      fontSize: 6,
+    },
+    h2: {
+      variant: "textStyles.heading",
       fontSize: 5,
-      lineHeight: "heading",
+    },
+    h3: {
+      variant: "textStyles.heading",
+      fontSize: 4,
+    },
+    h4: {
+      variant: "textStyles.heading",
+      fontSize: 3,
+    },
+    h5: {
+      variant: "textStyles.heading",
+      fontSize: 2,
+    },
+    h6: {
+      variant: "textStyles.heading",
+      fontSize: 1,
+    },
+    p: {
+      variant: "textStyles.body",
+    },
+    a: {
+      variant: "textStyles.body",
+      color: "primary",
     },
     img: {
       maxWidth: "100%",
