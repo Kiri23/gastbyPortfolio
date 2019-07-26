@@ -2,9 +2,14 @@ import React from "react"
 import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Hero from "../components/hero"
+import Hero from "../components/sections/hero"
+import Blog from "../components/sections/blog-section"
+import Portfolio from "../components/sections/portfolio-section"
+import References from "../components/sections/reference-section"
+import Services from "../components/sections/service-section"
 
-const FrontpageTemplate = ({ data: { frontpageYaml } }) => {
+const FrontpageTemplate = ({ data }) => {
+  const { frontpageYaml, posts } = data
   const { title, subtitle, image, imageAltText } = frontpageYaml
 
   return (
@@ -14,6 +19,10 @@ const FrontpageTemplate = ({ data: { frontpageYaml } }) => {
         subtitle={subtitle}
         image={{ ...image, imageAltText }}
       />
+      <Blog posts={posts.nodes} />
+      <Portfolio />
+      <References />
+      <Services />
     </Layout>
   )
 }
@@ -29,6 +38,11 @@ export const query = graphql`
         ...ImageFragment
       }
       imageAltText
+    }
+    posts: allBlogPost(sort: { fields: [date, title], order: DESC }, limit: 3) {
+      nodes {
+        ...BlogSectionFields
+      }
     }
   }
 `

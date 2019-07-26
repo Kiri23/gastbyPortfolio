@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 
-import Image from "./image"
+import Image from "../image"
 
 const Hero = ({ title, subtitle, image }) => {
   return (

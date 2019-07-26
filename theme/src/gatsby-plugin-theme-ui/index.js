@@ -6,15 +6,16 @@
 export default {
   colors: {
     text: "#232129",
+    heading: "#232129",
     background: "#fff",
     primary: "#639",
-    heading: "#232129",
+    muted: "#535159",
   },
   fonts: {
     default:
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
   },
-  fontSizes: [16, 18, 20, 22, 27, 36],
+  fontSizes: [14, 18, 20, 22, 27, 36],
   lineHeights: {
     text: "1.45",
     heading: "1.1",
@@ -22,7 +23,7 @@ export default {
   sizes: {
     container: 950,
   },
-  space: [0, 8, 16, 32, 64],
+  space: [0, 8, 16, 32, 64, 128],
   styles: {
     Layout: {
       backgroundColor: "background",
