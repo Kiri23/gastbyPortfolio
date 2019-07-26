@@ -24,12 +24,12 @@ const Reference = ({
         <MDXRenderer>{body}</MDXRenderer>
         {previous && (
           <span>
-            Previous post: <Link to={previous.slug}>{previous.name}</Link>
+            Newer: <Link to={previous.slug}>{previous.name}</Link>
           </span>
         )}
         {next && (
           <span>
-            Next post: <Link to={next.slug}>{next.name}</Link>
+            Older: <Link to={next.slug}>{next.name}</Link>
           </span>
         )}
       </article>

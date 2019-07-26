@@ -20,12 +20,12 @@ const BlogPostTemplate = ({
         <MDXRenderer>{body}</MDXRenderer>
         {previous && (
           <span>
-            Previous post: <Link to={previous.slug}>{previous.title}</Link>
+            Newer: <Link to={previous.slug}>{previous.title}</Link>
           </span>
         )}
         {next && (
           <span>
-            Next post: <Link to={next.slug}>{next.title}</Link>
+            Older: <Link to={next.slug}>{next.title}</Link>
           </span>
         )}
       </article>

@@ -23,12 +23,12 @@ const PortfolioItemTemplate = ({
         <MDXRenderer>{body}</MDXRenderer>
         {previous && (
           <span>
-            Previous: <Link to={previous.slug}>{previous.title}</Link>
+            Newer: <Link to={previous.slug}>{previous.title}</Link>
           </span>
         )}
         {next && (
           <span>
-            Next: <Link to={next.slug}>{next.title}</Link>
+            Older: <Link to={next.slug}>{next.title}</Link>
           </span>
         )}
       </article>
