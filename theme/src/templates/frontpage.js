@@ -9,7 +9,7 @@ import References from "../components/sections/reference-section"
 import Services from "../components/sections/service-section"
 
 const FrontpageTemplate = ({ data }) => {
-  const { frontpageYaml, posts, portfolio, references } = data
+  const { frontpageYaml, posts, portfolio, references, services } = data
   const { title, subtitle, image, imageAltText } = frontpageYaml
 
   return (
@@ -22,7 +22,7 @@ const FrontpageTemplate = ({ data }) => {
       <Blog posts={posts.nodes} />
       <Portfolio items={portfolio.nodes} />
       <References references={references.nodes} />
-      <Services />
+      <Services services={services.nodes} />
     </Layout>
   )
 }
@@ -58,6 +58,11 @@ export const query = graphql`
     ) {
       nodes {
         ...ReferenceSectionFields
+      }
+    }
+    services: allService {
+      nodes {
+        ...ServiceSectionFields
       }
     }
   }
