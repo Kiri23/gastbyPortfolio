@@ -26,6 +26,13 @@ module.exports = options => ({
     {
       resolve: "gatsby-source-filesystem",
       options: {
+        path: options.generalContentPath || "content/general",
+        name: options.generalContentPath || "content/general",
+      },
+    },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
         path: options.assetPath || "content/assets",
         name: options.assetPath || "content/assets",
       },
@@ -58,6 +65,7 @@ module.exports = options => ({
         name: options.servicesContentPath || "content/services",
       },
     },
+    `gatsby-transformer-yaml`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
   ],

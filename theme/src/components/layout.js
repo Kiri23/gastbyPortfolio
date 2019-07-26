@@ -1,8 +1,15 @@
 import React from "react"
 import { css, Global } from "@emotion/core"
-import { Layout as StyledLayout, Header, Main, Container } from "theme-ui"
+import {
+  Layout as StyledLayout,
+  Header,
+  Main,
+  Container,
+  Footer as StyledFooter,
+} from "theme-ui"
 
 import Navigation from "./navigation"
+import Footer from "./footer.js"
 
 const Layout = ({ children }) => {
   return (
@@ -34,6 +41,9 @@ const Layout = ({ children }) => {
       <Main>
         <Container>{children}</Container>
       </Main>
+      <StyledFooter>
+        <Footer />
+      </StyledFooter>
     </StyledLayout>
   )
 }

@@ -11,25 +11,7 @@ const {
 
 const createMdxNode = require("./utils/createMdxNode")
 
-// // Customizable theme options for site content base paths
-// let blogBasePath
-// let portfolioBasePath
-// let referencesBasePath
-// let servicesBasePath
-
-const basePaths = {}
-
-// // Customizable theme options for site content directories
-// let contentPath
-// let assetPath
-// let blogContentPath
-// let portfolioContentPath
-// let referencesContentPath
-// let servicesContentPath
-
-const contentPaths = {}
-
-const PageTemplate = require.resolve("./src/templates/page.js")
+const FrontpageTemplate = require.resolve("./src/templates/frontpage.js")
 const BlogPostsTemplate = require.resolve("./src/templates/blog-posts.js")
 const BlogPostTemplate = require.resolve("./src/templates/blog-post.js")
 const PortfolioTemplate = require.resolve("./src/templates/portfolio.js")
@@ -40,6 +22,9 @@ const ReferencesTemplate = require.resolve("./src/templates/references.js")
 const ReferenceTemplate = require.resolve("./src/templates/reference.js")
 const ServicesTemplate = require.resolve("./src/templates/services.js")
 const ServiceTemplate = require.resolve("./src/templates/service.js")
+
+const basePaths = {}
+const contentPaths = {}
 
 // Ensure that content directories exist
 exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
@@ -249,7 +234,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   // Create front page
   createPage({
     path: "/",
-    component: PageTemplate,
+    component: FrontpageTemplate,
     context: {
       heading: "Home",
       showInNavigation: true,
