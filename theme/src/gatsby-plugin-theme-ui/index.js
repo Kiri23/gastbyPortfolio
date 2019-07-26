@@ -60,5 +60,8 @@ export default {
       fontSize: 5,
       lineHeight: "heading",
     },
+    img: {
+      maxWidth: "100%",
+    },
   },
 }
