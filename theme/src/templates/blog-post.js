@@ -2,9 +2,9 @@
 import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
-import Image from "gatsby-image"
 
 import Layout from "../components/layout"
+import Image from "../components/image"
 
 const BlogPostTemplate = ({
   pathContext: { previous, next },
@@ -16,7 +16,7 @@ const BlogPostTemplate = ({
     <Layout>
       <article>
         <Styled.h1>{title}</Styled.h1>
-        {cover && <Image fixed={cover.childImageSharp.fixed} />}
+        {cover && <Image image={cover} />}
         <MDXRenderer>{body}</MDXRenderer>
         {previous && (
           <span>
@@ -44,11 +44,7 @@ export const query = graphql`
       excerpt
       body
       cover {
-        childImageSharp {
-          fixed(cropFocus: CENTER, width: 600, height: 250) {
-            ...GatsbyImageSharpFixed
-          }
-        }
+        ...ImageFragment
       }
     }
   }

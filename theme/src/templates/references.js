@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
-import Image from "gatsby-image"
 
 import Layout from "../components/layout"
+import Image from "../components/image"
 
 const ReferencesTemplate = ({ data: { references } }) => {
   return (
@@ -12,11 +12,7 @@ const ReferencesTemplate = ({ data: { references } }) => {
       <section>
         {references.nodes.map(({ id, slug, name, excerpt, image }) => (
           <article key={id}>
-            <Image
-              fluid={image.childImageSharp.fluid}
-              alt={name}
-              sx={{ maxWidth: "128px" }}
-            />
+            {image && <Image image={image} alt={name} />}
             <Styled.h2>{name}</Styled.h2>
             <Styled.p>{excerpt}</Styled.p>
             <Link to={slug}>Read more</Link>
@@ -40,11 +36,7 @@ export const query = graphql`
         name
         excerpt
         image {
-          childImageSharp {
-            fluid(maxWidth: 128) {
-              ...GatsbyImageSharpFluid
-            }
-          }
+          ...ImageFragment
         }
       }
     }

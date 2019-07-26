@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
-import Image from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
+import Image from "../components/image"
 
 const PortfolioItemTemplate = ({
   pathContext: { previous, next },
@@ -16,10 +16,7 @@ const PortfolioItemTemplate = ({
       <article>
         <Styled.h1>{title}</Styled.h1>
         <Styled.p>Published: {publishedDate}</Styled.p>
-        <Image
-          fluid={screenshot.childImageSharp.fluid}
-          sx={{ width: "100%" }}
-        />
+        {screenshot && <Image image={screenshot} alt={title} />}
         <MDXRenderer>{body}</MDXRenderer>
         {previous && (
           <span>
@@ -46,11 +43,7 @@ export const query = graphql`
       publishedDate(formatString: "DD MMM, YYYY")
       body
       screenshot {
-        childImageSharp {
-          fluid(maxHeight: 400, maxWidth: 720, cropFocus: NORTH) {
-            ...GatsbyImageSharpFluid
-          }
-        }
+        ...ImageFragment
       }
     }
   }

@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
-import Image from "gatsby-image"
 
 import Layout from "../components/layout"
+import Image from "../components/image"
 
 const PortfolioTemplate = ({ data: { items } }) => {
   return (
@@ -12,10 +12,7 @@ const PortfolioTemplate = ({ data: { items } }) => {
       <section>
         {items.nodes.map(({ id, slug, title, excerpt, screenshot }) => (
           <article key={id}>
-            <Image
-              fluid={screenshot.childImageSharp.fluid}
-              sx={{ width: "100%" }}
-            />
+            {screenshot && <Image image={screenshot} alt={title} />}
             <Styled.h2>{title}</Styled.h2>
             <Styled.p>{excerpt}</Styled.p>
             <Link to={slug}>Read more</Link>
@@ -39,11 +36,7 @@ export const query = graphql`
         title
         excerpt
         screenshot {
-          childImageSharp {
-            fluid(maxHeight: 400, maxWidth: 720, cropFocus: NORTH) {
-              ...GatsbyImageSharpFluid
-            }
-          }
+          ...ImageFragment
         }
       }
     }

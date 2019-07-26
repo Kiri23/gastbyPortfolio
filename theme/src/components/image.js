@@ -18,7 +18,7 @@ export const fragment = graphql`
     id
     publicURL
     childImageSharp {
-      fluid(maxWidth: 650) {
+      fluid(maxWidth: 950) {
         ...GatsbyImageSharpFluid
       }
     }

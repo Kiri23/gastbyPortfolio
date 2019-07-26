@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
-import Image from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
+import Image from "../components/image"
 
 const Reference = ({
   pathContext: { previous, next },
@@ -14,11 +14,7 @@ const Reference = ({
   return (
     <Layout>
       <article>
-        <Image
-          fluid={image.childImageSharp.fluid}
-          alt={name}
-          sx={{ maxWidth: "128px" }}
-        />
+        {image && <Image image={image} alt={name} />}
         <Styled.h1>{name}</Styled.h1>
         <Styled.p>Published: {publishedDate}</Styled.p>
         <MDXRenderer>{body}</MDXRenderer>
@@ -47,11 +43,7 @@ export const query = graphql`
       publishedDate(formatString: "MMMM DD, YYYY")
       body
       image {
-        childImageSharp {
-          fluid(maxWidth: 128) {
-            ...GatsbyImageSharpFluid
-          }
-        }
+        ...ImageFragment
       }
     }
   }

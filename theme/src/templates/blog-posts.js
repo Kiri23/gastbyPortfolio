@@ -1,9 +1,9 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
-import Image from "gatsby-image"
 
 import Layout from "../components/layout"
+import Image from "../components/image"
 
 const BlogPostsTemplate = ({ data: { posts } }) => {
   return (
@@ -12,7 +12,7 @@ const BlogPostsTemplate = ({ data: { posts } }) => {
       <section>
         {posts.nodes.map(({ id, title, date, excerpt, slug, cover }) => (
           <article key={id}>
-            <Image fixed={cover.childImageSharp.fixed} />
+            {cover && <Image image={cover} />}
             <Styled.h2>{title}</Styled.h2>
             <Styled.p>{date}</Styled.p>
             <Styled.p>{excerpt}</Styled.p>
@@ -36,11 +36,7 @@ export const query = graphql`
         date(formatString: "DD MMM, YYYY")
         excerpt(pruneLength: 140)
         cover {
-          childImageSharp {
-            fixed(width: 300) {
-              ...GatsbyImageSharpFixed
-            }
-          }
+          ...ImageFragment
         }
       }
     }

@@ -1,10 +1,10 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
-import Image from "gatsby-image"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
+import Image from "../components/image"
 
 const ServiceTemplate = ({
   pathContext: { previous, next },
@@ -14,15 +14,7 @@ const ServiceTemplate = ({
 
   return (
     <Layout>
-      {illustration.childImageSharp ? (
-        <Image
-          fluid={illustration.childImageSharp.fluid}
-          alt={title}
-          sx={{ width: "60%" }}
-        />
-      ) : (
-        <img src={illustration.publicURL} alt={title} sx={{ width: "60%" }} />
-      )}
+      {illustration && <Image image={illustration} alt={title} />}
       <Styled.h1>{title}</Styled.h1>
       <MDXRenderer>{body}</MDXRenderer>
       {previous && (
@@ -47,12 +39,7 @@ export const query = graphql`
       title
       body
       illustration {
-        publicURL
-        childImageSharp {
-          fluid(maxWidth: 960) {
-            ...GatsbyImageSharpFluid
-          }
-        }
+        ...ImageFragment
       }
     }
   }
