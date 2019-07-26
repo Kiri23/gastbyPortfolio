@@ -9,7 +9,7 @@ import References from "../components/sections/reference-section"
 import Services from "../components/sections/service-section"
 
 const FrontpageTemplate = ({ data }) => {
-  const { frontpageYaml, posts, references } = data
+  const { frontpageYaml, posts, portfolio, references } = data
   const { title, subtitle, image, imageAltText } = frontpageYaml
 
   return (
@@ -20,7 +20,7 @@ const FrontpageTemplate = ({ data }) => {
         image={{ ...image, imageAltText }}
       />
       <Blog posts={posts.nodes} />
-      <Portfolio />
+      <Portfolio items={portfolio.nodes} />
       <References references={references.nodes} />
       <Services />
     </Layout>
@@ -42,6 +42,14 @@ export const query = graphql`
     posts: allBlogPost(sort: { fields: [date, title], order: DESC }, limit: 3) {
       nodes {
         ...BlogSectionFields
+      }
+    }
+    portfolio: allPortfolioItem(
+      sort: { fields: [publishedDate, title], order: DESC }
+      limit: 3
+    ) {
+      nodes {
+        ...PortfolioSectionFields
       }
     }
     references: allReference(
