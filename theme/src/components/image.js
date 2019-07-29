@@ -3,11 +3,11 @@ import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 
-const Image = ({ image, alt = "" }) => {
+const Image = ({ image, alt = "", ...props }) => {
   return image.childImageSharp ? (
-    <Img fluid={image.childImageSharp.fluid} alt={alt} />
+    <Img fluid={image.childImageSharp.fluid} alt={alt} {...props} />
   ) : (
-    <Styled.img src={image.publicURL} alt={alt} />
+    <Styled.img src={image.publicURL} alt={alt} {...props} />
   )
 }
 
