@@ -12,11 +12,11 @@ const BlogLink = ({ title, slug, date, cover }) => {
   return (
     <S.Link
       to={slug}
-      sx={{ my: 3 }}
+      sx={{ my: 0, flexBasis: ["100%", "100%", "50%"] }}
       onMouseEnter={() => setZoomed(true)}
       onMouseLeave={() => setZoomed(false)}
     >
-      <S.Container sx={{ my: 2 }}>
+      <S.Container>
         <Image
           image={cover}
           style={{
@@ -58,7 +58,15 @@ export const fragment = graphql`
 
 const S = {}
 
-S.Link = styled(Link)``
+S.Link = styled(Link)`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 100%;
+  box-sizing: border-box;
+  text-decoration: none;
+`
 
 S.Overlay = styled.div`
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
@@ -77,11 +85,13 @@ S.Container = styled.div`
   cursor: pointer;
   border: 1px solid black;
   box-sizing: border-box;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
 `
 
 S.Content = styled.div`
   color: white;
-  text-decoration: none;
   position: relative;
 `
 
