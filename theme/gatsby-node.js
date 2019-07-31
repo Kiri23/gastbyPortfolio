@@ -252,12 +252,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     },
   })
 
-  // Create blog index page
+  // Create services index page
   createPage({
-    path: basePaths.blogBasePath,
-    component: BlogPostsTemplate,
+    path: basePaths.servicesBasePath,
+    component: ServicesTemplate,
     context: {
-      heading: "Blog",
+      heading: "Services",
       showInNavigation: true,
     },
   })
@@ -272,23 +272,23 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     },
   })
 
+  // Create blog index page
+  createPage({
+    path: basePaths.blogBasePath,
+    component: BlogPostsTemplate,
+    context: {
+      heading: "Blog",
+      showInNavigation: true,
+    },
+  })
+
   // Create references index page
   createPage({
     path: basePaths.referencesBasePath,
     component: ReferencesTemplate,
     context: {
       heading: "References",
-      showInNavigation: true,
-    },
-  })
-
-  // Create services index page
-  createPage({
-    path: basePaths.servicesBasePath,
-    component: ServicesTemplate,
-    context: {
-      heading: "Services",
-      showInNavigation: true,
+      showInNavigation: false,
     },
   })
 }
