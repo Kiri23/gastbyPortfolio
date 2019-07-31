@@ -8,7 +8,7 @@ import Image from "../image"
 const ServiceSection = ({ services }) => {
   return (
     <Section>
-      <Styled.h1>Service</Styled.h1>
+      <Styled.h1>Services</Styled.h1>
       <div>
         {services.map(service => (
           <article key={service.id} sx={{ my: 3 }}>

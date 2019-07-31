@@ -14,10 +14,10 @@ const FrontpageTemplate = ({ data }) => {
   return (
     <Layout>
       <Hero {...hero} />
+      <Services services={services.nodes} />
       <Blog posts={posts.nodes} />
       <Portfolio items={portfolio.nodes} />
       <References references={references.nodes} />
-      <Services services={services.nodes} />
     </Layout>
   )
 }
