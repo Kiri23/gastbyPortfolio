@@ -37,6 +37,8 @@ export const fragment = graphql`
 const S = {}
 
 S.Article = styled.article`
+  display: flex;
+  flex-direction: column;
   flex-grow: 0;
   flex-shrink: 0;
   flex-basis: 100%;
