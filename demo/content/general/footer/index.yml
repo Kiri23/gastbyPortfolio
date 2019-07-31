@@ -1,5 +1,4 @@
-social-media:
-  - name: Facebook
-    url: https://facebook.com
-  - name: Instagram
-    url: https://instagram.com
+facebook: "https://www.facebook.com"
+github: https://github.com/rennehir
+linkedin: https://www.linkedin.com/in/rennehir/
+twitter: https://twitter.com/RenneHir
