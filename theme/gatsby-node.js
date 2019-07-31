@@ -238,11 +238,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     context: {
       heading: "Home",
       showInNavigation: true,
-      content: `
-        <p>
-          Homepage gathers everything together
-        </p>
-      `,
+      basePaths,
     },
   })
 

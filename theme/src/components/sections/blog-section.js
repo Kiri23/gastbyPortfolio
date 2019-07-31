@@ -3,23 +3,18 @@ import { jsx, Styled } from "theme-ui"
 
 import Section from "../section"
 import BlogLink from "../blog-link"
+import Link from "../button-link"
 
-const BlogSection = ({ posts }) => {
+const BlogSection = ({ posts, basePath }) => {
   return (
     <Section>
       <Styled.h2>Latest from the blog</Styled.h2>
-      <div>
+      <div sx={{ my: 3 }}>
         {posts.map(post => (
           <BlogLink key={post.id} {...post} />
-          // <article key={post.id} sx={{ my: 3 }}>
-          //   <Styled.h3>{post.title}</Styled.h3>
-          //   <Styled.p>{post.excerpt}</Styled.p>
-          //   <Styled.p sx={{ fontSize: 0, color: "muted" }}>
-          //     Published {post.date}
-          //   </Styled.p>
-          // </article>
         ))}
       </div>
+      <Link to={basePath}>Read all</Link>
     </Section>
   )
 }

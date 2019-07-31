@@ -3,12 +3,13 @@ import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
 
 import Section from "../section"
+import Link from "../button-link"
 
-const PortfolioSection = ({ items }) => {
+const PortfolioSection = ({ items, basePath }) => {
   return (
     <Section>
       <Styled.h2>Portfolio</Styled.h2>
-      <div>
+      <div sx={{ my: 3 }}>
         {items.map(item => (
           <article key={item.id} sx={{ my: 3 }}>
             <Styled.h3>{item.title}</Styled.h3>
@@ -19,6 +20,7 @@ const PortfolioSection = ({ items }) => {
           </article>
         ))}
       </div>
+      <Link to={basePath}>See all</Link>
     </Section>
   )
 }
