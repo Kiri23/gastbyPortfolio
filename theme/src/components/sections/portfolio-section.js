@@ -9,8 +9,7 @@ import Link from "../button-link"
 const PortfolioSection = ({ items, basePath }) => {
   return (
     <Section>
-      <Styled.h2>Portfolio</Styled.h2>
-      <S.Container sx={{ my: 3 }}>
+      <S.Container>
         {items.map(item => (
           <PortfolioLink key={item.id} {...item} />
         ))}

@@ -1,24 +1,15 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
+import Portfolio from "../components/sections/portfolio-section"
 
 const PortfolioTemplate = ({ data: { items } }) => {
   return (
     <Layout>
       <Styled.h1>Portfolio</Styled.h1>
-      <section>
-        {items.nodes.map(({ id, slug, title, excerpt, screenshot }) => (
-          <article key={id}>
-            {screenshot && <Image image={screenshot} alt={title} />}
-            <Styled.h2>{title}</Styled.h2>
-            <Styled.p>{excerpt}</Styled.p>
-            <Link to={slug}>Read more</Link>
-          </article>
-        ))}
-      </section>
+      <Portfolio items={items.nodes} />
     </Layout>
   )
 }
