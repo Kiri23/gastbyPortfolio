@@ -4,7 +4,7 @@ import { Link, graphql, useStaticQuery } from "gatsby"
 const Navigation = () => {
   const data = useStaticQuery(graphql`
     query {
-      allSitePage {
+      allSitePage(filter: { context: { showInNavigation: { eq: true } } }) {
         nodes {
           id
           path
@@ -19,15 +19,11 @@ const Navigation = () => {
 
   return (
     <nav>
-      {data.allSitePage.nodes.map(page => {
-        if (page.context.showInNavigation) {
-          return (
-            <Link to={page.path} key={page.id}>
-              {page.context.heading}
-            </Link>
-          )
-        } else return null
-      })}
+      {data.allSitePage.nodes.map(page => (
+        <Link to={page.path} key={page.id}>
+          {page.context.heading}
+        </Link>
+      ))}
     </nav>
   )
 }
