@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx, Styled } from "theme-ui"
+import { jsx } from "theme-ui"
 import styled from "@emotion/styled"
 
 import Section from "../section"

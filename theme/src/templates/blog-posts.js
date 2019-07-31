@@ -1,27 +1,15 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
+import Blog from "../components/sections/blog-section"
 
 const BlogPostsTemplate = ({ data: { posts } }) => {
   return (
     <Layout>
       <Styled.h1>Blog</Styled.h1>
-      <section>
-        {posts.nodes.map(({ id, title, date, excerpt, slug, cover }) => (
-          <article key={id}>
-            {cover && <Image image={cover} />}
-            <Styled.h2>{title}</Styled.h2>
-            <Styled.p>{date}</Styled.p>
-            <Styled.p>{excerpt}</Styled.p>
-            <Styled.a as={Link} to={slug}>
-              Read
-            </Styled.a>
-          </article>
-        ))}
-      </section>
+      <Blog posts={posts.nodes} />
     </Layout>
   )
 }
