@@ -11,17 +11,27 @@ const {
 
 const createMdxNode = require("./utils/createMdxNode")
 
-const FrontpageTemplate = require.resolve("./src/templates/frontpage.js")
-const BlogPostsTemplate = require.resolve("./src/templates/blog-posts.js")
-const BlogPostTemplate = require.resolve("./src/templates/blog-post.js")
-const PortfolioTemplate = require.resolve("./src/templates/portfolio.js")
-const PortfolioItemTemplate = require.resolve(
-  "./src/templates/portfolio-item.js"
+const FrontpageTemplate = path.resolve(
+  `${__dirname}/src/templates/frontpage.js`
 )
-const ReferencesTemplate = require.resolve("./src/templates/references.js")
-const ReferenceTemplate = require.resolve("./src/templates/reference.js")
-const ServicesTemplate = require.resolve("./src/templates/services.js")
-const ServiceTemplate = require.resolve("./src/templates/service.js")
+const BlogPostsTemplate = path.resolve(
+  `${__dirname}/src/templates/blog-posts.js`
+)
+const BlogPostTemplate = path.resolve(`${__dirname}/src/templates/blog-post.js`)
+const PortfolioTemplate = path.resolve(
+  `${__dirname}/src/templates/portfolio.js`
+)
+const PortfolioItemTemplate = path.resolve(
+  `${__dirname}/src/templates/portfolio-item.js`
+)
+const ReferencesTemplate = path.resolve(
+  `${__dirname}/src/templates/references.js`
+)
+const ReferenceTemplate = path.resolve(
+  `${__dirname}/src/templates/reference.js`
+)
+const ServicesTemplate = path.resolve(`${__dirname}/src/templates/services.js`)
+const ServiceTemplate = path.resolve(`${__dirname}/src/templates/service.js`)
 
 const basePaths = {}
 const contentPaths = {}
