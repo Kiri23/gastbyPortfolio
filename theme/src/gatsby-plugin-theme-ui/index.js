@@ -10,6 +10,7 @@ export default {
     heading: "#232129",
     background: "#fff",
     primary: "#639",
+    secondary: "#4E7",
     muted: "#535159",
     light: "#C6C3C9",
   },
@@ -75,13 +76,23 @@ export default {
       color: "background",
       fontWeight: "bold",
       margin: 0,
-      span: {
-        display: "block",
-        fontSize: 3,
-        margin: "0 auto",
-        maxWidth: "container",
+      nav: {
+        margin: "auto",
+        width: "container",
         padding: 3,
-        width: "90vw",
+        display: "flex",
+        justifyContent: "space-between",
+        a: {
+          padding: 1,
+          color: "white",
+          textDecoration: "none",
+          textTransform: "uppercase",
+          fontFamily: "heading",
+        },
+        "a[aria-current='page']": {
+          borderBottom: "2px solid",
+          borderColor: "secondary",
+        },
       },
     },
     Main: {
@@ -91,6 +102,7 @@ export default {
     },
     Container: {
       padding: 0,
+      maxWidth: "container",
     },
     h1: {
       variant: "textStyles.heading",

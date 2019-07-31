@@ -24,20 +24,6 @@ const Layout = ({ children }) => {
             body {
               margin: 0;
             }
-            nav {
-              margin: auto;
-              width: 850px;
-              padding: 32px;
-              display: flex;
-              justify-content: space-around;
-              a {
-                color: white;
-                text-decoration: none;
-              }
-              a[aria-current="page"] {
-                color: aquamarine;
-              }
-            }
           `}
         />
         <Header>
