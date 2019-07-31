@@ -222,6 +222,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         id,
         previous,
         next,
+        basePaths,
       },
     })
   })
@@ -237,6 +238,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         id,
         previous,
         next,
+        basePaths,
       },
     })
   })
@@ -259,6 +261,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     context: {
       heading: "Services",
       showInNavigation: true,
+      basePaths,
     },
   })
 
@@ -269,6 +272,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     context: {
       heading: "Portfolio",
       showInNavigation: true,
+      basePaths,
     },
   })
 
@@ -279,6 +283,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     context: {
       heading: "Blog",
       showInNavigation: true,
+      basePaths,
     },
   })
 
@@ -289,6 +294,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     context: {
       heading: "References",
       showInNavigation: false,
+      basePaths,
     },
   })
 }

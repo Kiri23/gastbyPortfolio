@@ -1,32 +1,23 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
+import Link from "../components/button-link"
 
-const ServiceTemplate = ({
-  pathContext: { previous, next },
-  data: { service },
-}) => {
+const ServiceTemplate = ({ pathContext: { basePaths }, data: { service } }) => {
   const { title, body, illustration } = service
 
   return (
-    <Layout>
+    <Layout sx={{ pt: 3 }}>
       {illustration && <Image image={illustration} alt={title} />}
       <Styled.h1>{title}</Styled.h1>
       <MDXRenderer>{body}</MDXRenderer>
-      {previous && (
-        <span>
-          Newer: <Link to={previous.slug}>{previous.title}</Link>
-        </span>
-      )}
-      {next && (
-        <span>
-          Older: <Link to={next.slug}>{next.title}</Link>
-        </span>
-      )}
+      <Link to={basePaths.servicesBasePath} sx={{ mt: 4 }}>
+        See all services
+      </Link>
     </Layout>
   )
 }

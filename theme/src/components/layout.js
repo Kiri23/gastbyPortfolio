@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import { css, Global } from "@emotion/core"
 import {
   Layout as StyledLayout,
@@ -15,7 +16,7 @@ import "@fortawesome/fontawesome-free/css/all.css"
 import Navigation from "./navigation"
 import Footer from "./footer.js"
 
-const Layout = ({ children }) => {
+const Layout = ({ children, ...props }) => {
   return (
     <ThemeProvider theme={theme}>
       <StyledLayout>
@@ -30,7 +31,7 @@ const Layout = ({ children }) => {
           <Navigation />
         </Header>
         <Main>
-          <Container>{children}</Container>
+          <Container {...props}>{children}</Container>
         </Main>
         <StyledFooter>
           <Footer />

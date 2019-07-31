@@ -12,7 +12,9 @@ const Service = ({ title, slug, illustration, excerpt }) => {
       <Image image={illustration} alt={title} />
       <Styled.h3>{title}</Styled.h3>
       <Styled.p>{excerpt}</Styled.p>
-      <ButtonLink to={slug}>Read more</ButtonLink>
+      <ButtonLink to={slug} sx={{ mt: "auto", mr: "auto" }}>
+        Read more
+      </ButtonLink>
     </S.Article>
   )
 }

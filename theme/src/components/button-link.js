@@ -1,9 +1,14 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import { Link } from "gatsby"
 import styled from "@emotion/styled"
 
-const ButtonLink = ({ children, to }) => {
-  return <S.Link to={to}>{children}</S.Link>
+const ButtonLink = ({ children, to, ...props }) => {
+  return (
+    <S.Link {...props} to={to}>
+      {children}
+    </S.Link>
+  )
 }
 
 export default ButtonLink
@@ -22,8 +27,6 @@ S.Link = styled(Link)`
   text-decoration: none;
   text-transform: uppercase;
   transition: all 200ms ease-in-out;
-  margin-top: auto;
-  margin-right: auto;
 
   :hover {
     filter: brightness(1.15);
