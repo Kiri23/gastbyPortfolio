@@ -48,7 +48,7 @@ export default {
   sizes: {
     container: 950,
   },
-  space: [0, 8, 16, 32, 64, 128],
+  space: [0, 8, 16, 32, 64, 128, 256],
   styles: {
     Layout: {
       backgroundColor: "background",
@@ -78,8 +78,6 @@ export default {
     },
     Container: {
       padding: 0,
-      paddingBottom: 3,
-      paddingTop: 3,
     },
     h1: {
       variant: "textStyles.heading",

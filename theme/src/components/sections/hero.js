@@ -4,10 +4,11 @@ import { graphql } from "gatsby"
 import styled from "@emotion/styled"
 
 import Image from "../image"
+import BlobUrl from "../../../assets/blobs/blob-1.svg"
 
 const Hero = ({ greeting, name, title, subtitle, image }) => {
   return (
-    <S.Section>
+    <S.Section sx={{ my: 4 }} bg={BlobUrl}>
       <S.ImageContainer>
         <Image image={image} alt={image.imageAltText} />
       </S.ImageContainer>
@@ -44,6 +45,11 @@ S.Section = styled.section`
   grid-template-columns: 1fr 1fr;
   grid-template-areas: "text image";
   grid-gap: ${props => props.theme.space[1]}px;
+  background-image: url(${props => props.bg});
+  background-repeat: no-repeat;
+  background-position: 20%;
+  background-size: contain;
+  padding: ${props => props.theme.space[3]}px 0;
 `
 
 S.TextContainer = styled.div`
