@@ -7,7 +7,7 @@
 module.exports = {
   plugins: [
     {
-      resolve: "gatsby-theme-personal-site",
+      resolve: "@rennehir/gatsby-theme-personal-site",
       options: {
         // Set your page's content's base paths
         blogBasePath: "/blog", // default: /blog

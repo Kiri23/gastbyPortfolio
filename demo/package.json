@@ -13,8 +13,8 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\""
   },
   "dependencies": {
+    "@rennehir/gatsby-theme-personal-site": "^0.1.0",
     "gatsby": "^2.13.1",
-    "gatsby-theme-personal-site": "*",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },

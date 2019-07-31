@@ -1,5 +1,5 @@
 import React from "react"
-import Layout from "gatsby-theme-personal-site/src/components/layout"
+import Layout from "@rennehir/gatsby-theme-personal-site/src/components/layout"
 import NotFound from "../../content/assets/undraw_page_not_found_su7k.svg"
 
 const NotFoundPage = () => {
