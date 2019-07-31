@@ -47,7 +47,7 @@ export default {
     },
   },
   sizes: {
-    container: 950,
+    container: 1280,
   },
   space: [0, 8, 16, 32, 64, 128, 256],
   styles: {
