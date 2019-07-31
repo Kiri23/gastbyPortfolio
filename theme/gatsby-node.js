@@ -192,6 +192,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         id,
         previous,
         next,
+        basePaths,
       },
     })
   })
@@ -207,6 +208,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         id,
         previous,
         next,
+        basePaths,
       },
     })
   })

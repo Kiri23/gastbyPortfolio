@@ -15,7 +15,7 @@ const PortfolioSection = ({ title, items, basePath }) => {
           <PortfolioLink key={item.id} {...item} />
         ))}
       </S.Container>
-      <Link to={basePath}>See all</Link>
+      {basePath && <Link to={basePath}>See all</Link>}
     </Section>
   )
 }
