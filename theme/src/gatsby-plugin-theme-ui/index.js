@@ -49,9 +49,13 @@ export default {
     },
     quote: {
       fontFamily: "body",
-      fontWieght: "body",
+      fontWeight: "body",
       lineHeight: "body",
       fontSize: 4,
+    },
+    fontAwesome: {
+      fontFamily: '"Font Awesome 5 Free"',
+      fontWeight: 900,
     },
   },
   sizes: {
@@ -130,11 +134,11 @@ export default {
       boxSizing: "border-box",
       width: "75%", // Leave space for the quotes
       "::before, ::after": {
+        variant: "textStyles.fontAwesome",
         position: "absolute",
         top: "8px",
         color: "light",
         display: "block",
-        fontFamily: "fontAwesome",
         zIndex: -1,
         margin: 1,
       },

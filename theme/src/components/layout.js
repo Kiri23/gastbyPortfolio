@@ -10,6 +10,8 @@ import {
 } from "theme-ui"
 import theme from "gatsby-plugin-theme-ui"
 
+import "@fortawesome/fontawesome-free/css/all.css"
+
 import Navigation from "./navigation"
 import Footer from "./footer.js"
 
