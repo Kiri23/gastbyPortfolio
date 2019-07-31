@@ -1,14 +1,15 @@
 /** @jsx jsx */
-import { jsx } from "theme-ui"
+import { jsx, Styled } from "theme-ui"
 import styled from "@emotion/styled"
 
 import Section from "../section"
 import PortfolioLink from "../portfolio-link"
 import Link from "../button-link"
 
-const PortfolioSection = ({ items, basePath }) => {
+const PortfolioSection = ({ title, items, basePath }) => {
   return (
     <Section>
+      {title && <Styled.h2>{title}</Styled.h2>}
       <S.Container>
         {items.map(item => (
           <PortfolioLink key={item.id} {...item} />

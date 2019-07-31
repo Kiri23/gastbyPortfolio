@@ -107,10 +107,12 @@ export default {
     h1: {
       variant: "textStyles.heading",
       fontSize: 6,
+      textTransform: "uppercase",
     },
     h2: {
       variant: "textStyles.heading",
       fontSize: 5,
+      textTransform: "uppercase",
     },
     h3: {
       variant: "textStyles.heading",
@@ -143,12 +145,13 @@ export default {
       position: "relative",
       padding: 0,
       margin: 0,
+      marginBottom: 3,
       boxSizing: "border-box",
       width: "75%", // Leave space for the quotes
       "::before, ::after": {
         variant: "textStyles.fontAwesome",
         position: "absolute",
-        top: "8px",
+        top: "0",
         color: "light",
         display: "block",
         zIndex: -1,
@@ -160,7 +163,7 @@ export default {
         left: "-58px",
         top: "-66px",
         "@media (min-width: 36rem)": {
-          top: "8px",
+          top: "initial",
           left: "initial",
           right: "100%",
           marginRight: 2,

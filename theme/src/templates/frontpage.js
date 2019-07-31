@@ -1,4 +1,5 @@
-import React from "react"
+/** @jsx jsx */
+import { jsx } from "theme-ui"
 import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
@@ -18,9 +19,21 @@ const FrontpageTemplate = ({ data, pageContext }) => {
     <Layout>
       <Hero {...hero} />
       <Services services={services.nodes} />
-      <Blog posts={posts.nodes} basePath={blogBasePath} />
-      <Portfolio items={portfolio.nodes} basePath={portfolioBasePath} />
-      <References references={references.nodes} basePath={referencesBasePath} />
+      <Blog
+        title="Latest from the blog"
+        posts={posts.nodes}
+        basePath={blogBasePath}
+      />
+      <Portfolio
+        title="Some of my work"
+        items={portfolio.nodes}
+        basePath={portfolioBasePath}
+      />
+      <References
+        title="References"
+        references={references.nodes}
+        basePath={referencesBasePath}
+      />
     </Layout>
   )
 }

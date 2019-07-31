@@ -3,22 +3,13 @@ import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 
 import Layout from "../components/layout"
-import Image from "../components/image"
+import References from "../components/sections/reference-section"
 
 const ReferencesTemplate = ({ data: { references } }) => {
   return (
     <Layout>
       <Styled.h1>References</Styled.h1>
-      <section>
-        {references.nodes.map(({ id, slug, name, excerpt, image }) => (
-          <article key={id}>
-            {image && <Image image={image} alt={name} />}
-            <Styled.h2>{name}</Styled.h2>
-            <Styled.p>{excerpt}</Styled.p>
-            <Link to={slug}>Read more</Link>
-          </article>
-        ))}
-      </section>
+      <References references={references.nodes} />
     </Layout>
   )
 }

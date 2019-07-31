@@ -6,10 +6,10 @@ import Section from "../section"
 import BlogLink from "../blog-link"
 import Link from "../button-link"
 
-const BlogSection = ({ posts, basePath }) => {
+const BlogSection = ({ title, posts, basePath }) => {
   return (
     <Section>
-      <Styled.h2>Latest from the blog</Styled.h2>
+      {title && <Styled.h2>{title}</Styled.h2>}
       <S.Container sx={{ my: 3 }}>
         {posts.map(post => (
           <BlogLink key={post.id} {...post} />
