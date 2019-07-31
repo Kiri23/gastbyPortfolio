@@ -1,41 +1,36 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { graphql } from "gatsby"
+import Slider from "react-slick"
+
+import "slick-carousel/slick/slick.css"
+import "slick-carousel/slick/slick-theme.css"
 
 import Section from "../section"
-import Link from "../button-link"
+import Reference from "../reference-link"
 
 const ReferenceSection = ({ references, basePath }) => {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 600,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    autoplay: false,
+    autoplaySpeed: 4000,
+  }
+
   return (
     <Section>
       <Styled.h2>References</Styled.h2>
-      <div sx={{ my: 3 }}>
+      <Slider {...settings} sx={{ my: 3 }}>
         {references.map(ref => (
-          <article key={ref.id} sx={{ my: 3 }}>
-            <Styled.h3>{ref.name}</Styled.h3>
-            <Styled.p>{ref.excerpt}</Styled.p>
-            <Styled.p sx={{ fontSize: 0, color: "muted" }}>
-              Published {ref.publishedDate}
-            </Styled.p>
-          </article>
+          <Reference key={ref.id} {...ref} />
         ))}
-      </div>
-      <Link to={basePath}>See all</Link>
+      </Slider>
+      {/* <Link to={basePath}>See all</Link> */}
     </Section>
   )
 }
 
 export default ReferenceSection
-
-export const fragment = graphql`
-  fragment ReferenceSectionFields on Reference {
-    id
-    slug
-    name
-    publishedDate(fromNow: true)
-    excerpt
-    image {
-      ...ImageFragment
-    }
-  }
-`

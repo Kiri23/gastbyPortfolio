@@ -11,11 +11,13 @@ export default {
     background: "#fff",
     primary: "#639",
     muted: "#535159",
+    light: "#C6C3C9",
   },
   fonts: {
     body:
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"',
     heading: '"Avenir Next", Roboto, Helvetica, sans-serif',
+    fontAwesome: "FontAwesome",
   },
   fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 96],
   fontWeights: {
@@ -28,22 +30,28 @@ export default {
     heading: "1.1",
   },
   textStyles: {
-    body: {
-      fontFamily: "body",
-      fontWeight: "body",
-      lineHeight: "body",
-      fontSize: 3,
+    display: {
+      fontFamily: "heading",
+      fontWeight: "heading",
+      lineHeight: "1.3",
+      fontSize: 7,
     },
     heading: {
       fontFamily: "heading",
       fontWeight: "heading",
       lineHeight: "heading",
     },
-    display: {
-      fontFamily: "heading",
-      fontWeight: "heading",
-      lineHeight: "1.3",
-      fontSize: 7,
+    body: {
+      fontFamily: "body",
+      fontWeight: "body",
+      lineHeight: "body",
+      fontSize: 3,
+    },
+    quote: {
+      fontFamily: "body",
+      fontWieght: "body",
+      lineHeight: "body",
+      fontSize: 4,
     },
   },
   sizes: {
@@ -113,6 +121,44 @@ export default {
     },
     img: {
       maxWidth: "100%",
+    },
+    blockquote: {
+      variant: "textStyles.quote",
+      position: "relative",
+      padding: 0,
+      margin: 0,
+      boxSizing: "border-box",
+      width: "75%", // Leave space for the quotes
+      "::before, ::after": {
+        position: "absolute",
+        top: "8px",
+        color: "light",
+        display: "block",
+        fontFamily: "fontAwesome",
+        zIndex: -1,
+        margin: 1,
+      },
+      "::before": {
+        content: '"\f10d"',
+        fontSize: 8,
+        left: "-58px",
+        top: "-66px",
+        "@media (min-width: 36rem)": {
+          top: "8px",
+          left: "initial",
+          right: "100%",
+          marginRight: 2,
+          fontSize: 6,
+        },
+      },
+      "::after": {
+        "@media (min-width: 36rem)": {
+          content: '"\f10e"',
+          left: "100%",
+          marginLeft: 2,
+          fontSize: 6,
+        },
+      },
     },
   },
 }
