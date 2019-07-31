@@ -4,6 +4,7 @@
  * @see https://theme-ui.com/gatsby-plugin/
  */
 export default {
+  breakpoints: ["36rem", "52rem", "64rem"],
   colors: {
     text: "#232129",
     heading: "#232129",

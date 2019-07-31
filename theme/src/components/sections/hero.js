@@ -42,14 +42,21 @@ const S = {}
 
 S.Section = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "text image";
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    "text"
+    "image";
   grid-gap: ${props => props.theme.space[1]}px;
   background-image: url(${props => props.bg});
   background-repeat: no-repeat;
-  background-position: 20%;
-  background-size: contain;
+  background-position: 0% 0%;
+  background-size: 50%;
   padding: ${props => props.theme.space[3]}px 0;
+
+  @media (min-width: ${({ theme }) => theme.breakpoints[2]}) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "text image";
+  }
 `
 
 S.TextContainer = styled.div`
