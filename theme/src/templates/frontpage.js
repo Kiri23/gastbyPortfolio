@@ -11,7 +11,7 @@ import Services from "../components/sections/service-section"
 const FrontpageTemplate = ({ data, pageContext }) => {
   const { hero, posts, portfolio, references, services } = data
   const {
-    basePaths: { blogBasePath, portfolioBasePath, referenceBasePath },
+    basePaths: { blogBasePath, portfolioBasePath, referencesBasePath },
   } = pageContext
 
   return (
@@ -20,7 +20,7 @@ const FrontpageTemplate = ({ data, pageContext }) => {
       <Services services={services.nodes} />
       <Blog posts={posts.nodes} basePath={blogBasePath} />
       <Portfolio items={portfolio.nodes} basePath={portfolioBasePath} />
-      <References references={references.nodes} basePath={referenceBasePath} />
+      <References references={references.nodes} basePath={referencesBasePath} />
     </Layout>
   )
 }
