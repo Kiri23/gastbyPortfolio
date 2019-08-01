@@ -50,7 +50,7 @@ const Footer = () => {
       <Styled.p sx={{ fontSize: 1 }}>
         © All rights are reserved | {new Date().getFullYear()} |{" "}
         <a
-          href="https://smakosh.com/?ref=gatsby-theme-portfolio"
+          href="https://renne.tech"
           rel="noopener noreferrer"
           target="_blank"
           sx={{ color: "white" }}
