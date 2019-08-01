@@ -20,7 +20,9 @@ const PortfolioItemTemplate = ({
         {screenshot && <Image image={screenshot} alt={title} />}
         <MDXRenderer>{body}</MDXRenderer>
       </article>
-      <Link to={basePaths.portfolioBasePath}>See all work</Link>
+      <Link to={basePaths.portfolioBasePath} sx={{ mt: 4 }}>
+        See all work
+      </Link>
     </Layout>
   )
 }

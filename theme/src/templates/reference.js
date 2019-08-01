@@ -1,15 +1,13 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
+import Link from "../components/button-link"
 
-const Reference = ({
-  pathContext: { previous, next },
-  data: { reference },
-}) => {
+const Reference = ({ pathContext: { basePaths }, data: { reference } }) => {
   const { name, publishedDate, body, image } = reference
   return (
     <Layout>
@@ -18,17 +16,10 @@ const Reference = ({
         <Styled.h1>{name}</Styled.h1>
         <Styled.p>Published: {publishedDate}</Styled.p>
         <MDXRenderer>{body}</MDXRenderer>
-        {previous && (
-          <span>
-            Newer: <Link to={previous.slug}>{previous.name}</Link>
-          </span>
-        )}
-        {next && (
-          <span>
-            Older: <Link to={next.slug}>{next.name}</Link>
-          </span>
-        )}
       </article>
+      <Link to={basePaths.referenceBasePath} sx={{ mt: 4 }}>
+        See all work
+      </Link>
     </Layout>
   )
 }
