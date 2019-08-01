@@ -6,7 +6,7 @@ import styled from "@emotion/styled"
 import Image from "../image"
 import BlobUrl from "../../../assets/blobs/blob-1.svg"
 
-const Hero = ({ greeting, name, title, subtitle, image }) => {
+const Hero = ({ greeting, name, subtitle, image }) => {
   return (
     <S.Section sx={{ my: 4 }} bg={BlobUrl}>
       <S.ImageContainer>
@@ -29,7 +29,6 @@ export const fragment = graphql`
     id
     greeting
     name
-    title
     subtitle
     image {
       ...ImageFragment
