@@ -32,17 +32,17 @@ const Footer = () => {
           </Link>
         )}
         {linkedin && (
-          <Link to={facebook}>
+          <Link to={linkedin}>
             <i className="fab fa-linkedin" />
           </Link>
         )}
         {github && (
-          <Link to={facebook}>
+          <Link to={github}>
             <i className="fab fa-github" />
           </Link>
         )}
         {twitter && (
-          <Link to={facebook}>
+          <Link to={twitter}>
             <i className="fab fa-twitter" />
           </Link>
         )}
@@ -69,7 +69,13 @@ const Link = ({ to, children }) => (
     href={to}
     target="_blank"
     rel="noopener noreferrer"
-    sx={{ fontSize: 5, color: "white", mx: 2, ":hover": { color: "#D3D3D3" } }}
+    sx={{
+      fontSize: 5,
+      color: "white",
+      mx: 2,
+      ":hover": { color: "#D3D3D3" },
+      transition: "color 200ms ease-in-out",
+    }}
   >
     {children}
   </a>
