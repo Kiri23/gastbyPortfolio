@@ -27,22 +27,22 @@ const Footer = () => {
     >
       <div>
         {facebook && (
-          <Link to={facebook}>
+          <Link to={facebook} aria-label="Follow me on Facebook">
             <i className="fab fa-facebook" />
           </Link>
         )}
         {linkedin && (
-          <Link to={linkedin}>
+          <Link to={linkedin} aria-label="Follow me on LinkedIn">
             <i className="fab fa-linkedin" />
           </Link>
         )}
         {github && (
-          <Link to={github}>
+          <Link to={github} aria-label="Follow me on GitHub">
             <i className="fab fa-github" />
           </Link>
         )}
         {twitter && (
-          <Link to={twitter}>
+          <Link to={twitter} aria-label="Follow me on Twitter">
             <i className="fab fa-twitter" />
           </Link>
         )}
@@ -64,7 +64,7 @@ const Footer = () => {
 
 export default Footer
 
-const Link = ({ to, children }) => (
+const Link = ({ to, children, ...props }) => (
   <a
     href={to}
     target="_blank"
@@ -76,6 +76,7 @@ const Link = ({ to, children }) => (
       ":hover": { color: "#D3D3D3" },
       transition: "color 200ms ease-in-out",
     }}
+    {...props}
   >
     {children}
   </a>
