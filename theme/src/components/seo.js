@@ -31,6 +31,7 @@ const SEO = ({ postMeta = {}, frontmatter = {}, isBlogPost }) => {
   return (
     <React.Fragment>
       <Helmet>
+        <html lang="en" />
         {/* General tags */}
         <title>{title}</title>
         <meta name="description" content={description} />
