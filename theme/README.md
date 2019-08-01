@@ -30,25 +30,96 @@ module.exports = {
 gatsby develop
 ```
 
-## Submission Checklist
+## Adding content to your site
 
-To ensure your Theme Jam submission [follows the rules](https://themejam.gatsbyjs.org/rules), use this checklist:
+This theme follows a content directory structure like this:
 
-- [ ] Use our [accessibility guide][a11y] to ensure your site meets our accessibility standards
-- [ ] Run a performance audit using [Lighthouse][] and/or [WebPageTest][]
-- [ ] Set up a live demo using [Netlify][] or [GitHub Pages][]
-- [ ] Add installation documentation to the README
-- [ ] Update the `name` field in `package.json`
-- [ ] Update the `author` field in `package.json`
-- [ ] Update the `repository` field in `package.json`
-- [ ] Make sure the theme’s `keywords` in `package.json` include `gatsby`, `gatsby-theme`, and `gatsby-plugin`
-- [ ] Publish your theme to npm ([docs][npmpublish])
-- [ ] Submit your theme at https://themejam.gatsbyjs.org
+```sh
+content
+  +- assets
+  +- blog
+  +- general
+      +- footer
+          +- index.yml
+      +- hero
+          +- index.yml
+  +- portfolio
+  +- references
+  +- services
+```
 
-[a11y]: https://gatsbyjs.org/docs/making-your-site-accessible#how-to-improve-accessibility
-[lighthouse]: https://developers.google.com/web/tools/lighthouse/
-[axe]: https://www.deque.com/axe/
-[webpagetest]: http://webpagetest.org/
-[netlify]: https://netlify.com
-[github pages]: https://pages.github.com/
-[npmpublish]: https://docs.npmjs.com/cli/publish
+Add all your assets to the `assets` directory and you can reference them from other documents.
+
+The `general` directory holds information that is used for example in hero or footer
+
+### `content/general/hero/index.yml`
+
+```yaml
+greeting: "Hello, I am"
+name: "Name"
+subtitle: "– a web developer"
+image: "../../assets/{your-image}.svg"
+imageAltText: "Web Developer"
+```
+
+### `content/general/footer/index.yml`
+
+Add urls to your social media profiles
+
+```yaml
+facebook: ""
+github: ""
+linkedin: ""
+twitter: ""
+```
+
+### `content/blog/{post}.mdx`
+
+Put `.mdx` files in this directory to turn them into blog posts. Use these fields in the frontmatter:
+
+```yaml
+---
+title: Hello World
+date: 2019-07-23
+cover: "../assets/{your-image}.jpg"
+---
+
+```
+
+### `content/portfolio/{item}.mdx`
+
+Put `.mdx` files in this directory to turn them into your portfolio items. Use these fields in the frontmatter:
+
+```yaml
+---
+title: "title"
+publishedDate: 2019-02-12
+screenshot: "../assets/{your-image}.png"
+---
+
+```
+
+### `content/references/{ref}.mdx`
+
+Put `.mdx` files in this directory to turn them into references. Use these fields in the frontmatter:
+
+```yaml
+---
+name: Company or person name
+publishedDate: 2019-06-15
+image: "../assets/{your-image}.png"
+---
+
+```
+
+### `content/services/{service}.mdx`
+
+Put `.mdx` files in this directory to turn them into services. Use these fields in the frontmatter:
+
+```yaml
+---
+title: Application Development
+illustration: "../assets/undraw_Mobile_application_mr4r.svg"
+---
+
+```
