@@ -12,7 +12,13 @@ const ServiceTemplate = ({ pathContext: { basePaths }, data: { service } }) => {
 
   return (
     <Layout sx={{ my: 4 }}>
-      {illustration && <Image image={illustration} alt={title} />}
+      {illustration && (
+        <Image
+          image={illustration}
+          alt={title}
+          sx={{ width: ["100%", "80%", "70%"], mx: "auto" }}
+        />
+      )}
       <Styled.h1>{title}</Styled.h1>
       <MDXRenderer>{body}</MDXRenderer>
       <Link to={basePaths.servicesBasePath} sx={{ mt: 4 }}>

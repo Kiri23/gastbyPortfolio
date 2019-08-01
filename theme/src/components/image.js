@@ -7,7 +7,12 @@ const Image = ({ image, alt = "", ...props }) => {
   return image.childImageSharp ? (
     <Img fluid={image.childImageSharp.fluid} alt={alt} {...props} />
   ) : (
-    <Styled.img src={image.publicURL} alt={alt} {...props} />
+    <Styled.img
+      src={image.publicURL}
+      alt={alt}
+      {...props}
+      sx={{ display: "block" }}
+    />
   )
 }
 
