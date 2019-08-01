@@ -15,7 +15,7 @@ const BlogSection = ({ title, posts, basePath }) => {
           <BlogLink key={post.id} {...post} />
         ))}
       </S.Container>
-      <Link to={basePath}>Read all</Link>
+      {basePath && <Link to={basePath}>Read all</Link>}
     </Section>
   )
 }

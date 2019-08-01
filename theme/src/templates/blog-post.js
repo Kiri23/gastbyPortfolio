@@ -2,6 +2,7 @@
 import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import styled from "@emotion/styled"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -10,25 +11,41 @@ const BlogPostTemplate = ({
   pathContext: { previous, next },
   data: { post },
 }) => {
-  const { title, body, cover } = post
+  const { title, date, body, cover } = post
 
   return (
-    <Layout>
-      <article>
+    <Layout sx={{ mb: 4 }}>
+      <article sx={{ mb: 4 }}>
+        {cover && (
+          <Image
+            image={cover}
+            sx={{
+              width: "100vw",
+              maxHeight: "35vh",
+              position: "relative",
+              marginLeft: "-50vw",
+              left: "50%",
+            }}
+          />
+        )}
+        <Styled.p sx={{ color: "muted" }}>Published on {date}</Styled.p>
         <Styled.h1>{title}</Styled.h1>
-        {cover && <Image image={cover} />}
         <MDXRenderer>{body}</MDXRenderer>
+      </article>
+      <S.LinkContainer sx={{ fontSize: 3 }}>
         {previous && (
-          <span>
-            Newer: <Link to={previous.slug}>{previous.title}</Link>
-          </span>
+          <S.LinkContent sx={{ gridArea: "newer" }}>
+            <Styled.p>Newer post:</Styled.p>
+            <Link to={previous.slug}>{previous.title}</Link>
+          </S.LinkContent>
         )}
         {next && (
-          <span>
-            Older: <Link to={next.slug}>{next.title}</Link>
-          </span>
+          <S.LinkContent sx={{ gridArea: "older" }}>
+            <Styled.p>Older post:</Styled.p>
+            <Link to={next.slug}>{next.title}</Link>
+          </S.LinkContent>
         )}
-      </article>
+      </S.LinkContainer>
     </Layout>
   )
 }
@@ -49,3 +66,14 @@ export const query = graphql`
     }
   }
 `
+
+const S = {}
+
+S.LinkContainer = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "older newer";
+  grid-gap: ${({ theme }) => theme.space[3]}px;
+`
+
+S.LinkContent = styled.div``
