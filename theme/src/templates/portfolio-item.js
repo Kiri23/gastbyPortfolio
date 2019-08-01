@@ -2,6 +2,7 @@
 import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import SEO from "../components/seo"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -11,9 +12,10 @@ const PortfolioItemTemplate = ({
   pageContext: { basePaths },
   data: { item },
 }) => {
-  const { title, publishedDate, body, screenshot } = item
+  const { title, slug, publishedDate, excerpt, body, screenshot } = item
   return (
     <Layout sx={{ my: 4 }}>
+      <SEO postMeta={{ title: title, description: excerpt, slug }} />
       <article>
         <Styled.h1>{title}</Styled.h1>
         <Styled.p>Published: {publishedDate}</Styled.p>
@@ -34,7 +36,9 @@ export const query = graphql`
     item: portfolioItem(id: { eq: $id }) {
       id
       title
+      slug
       publishedDate(formatString: "DD MMM, YYYY")
+      excerpt
       body
       screenshot {
         ...ImageFragment

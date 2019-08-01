@@ -3,6 +3,7 @@ import { jsx, Styled } from "theme-ui"
 import { graphql, Link } from "gatsby"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import styled from "@emotion/styled"
+import SEO from "../components/seo"
 
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -11,10 +12,11 @@ const BlogPostTemplate = ({
   pathContext: { previous, next },
   data: { post },
 }) => {
-  const { title, date, body, cover } = post
+  const { title, slug, date, excerpt, body, cover } = post
 
   return (
     <Layout sx={{ mb: 4 }}>
+      <SEO postMeta={{ title: title, description: excerpt, slug }} isBlogPost />
       <article sx={{ mb: 4 }}>
         {cover && (
           <Image
@@ -57,6 +59,7 @@ export const query = graphql`
     post: blogPost(id: { eq: $id }) {
       id
       title
+      slug
       date(formatString: "MMMM DD, YYYY")
       excerpt
       body

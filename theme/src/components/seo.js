@@ -3,7 +3,7 @@ import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 import PropTypes from "prop-types"
 
-const SEO = ({ postMeta = {}, frontmatter = {}, postImage, isBlogPost }) => {
+const SEO = ({ postMeta = {}, frontmatter = {}, isBlogPost }) => {
   const {
     site: { siteMetadata: seo },
     footerYaml: social,
@@ -25,9 +25,8 @@ const SEO = ({ postMeta = {}, frontmatter = {}, postImage, isBlogPost }) => {
 
   const title = postMeta.title ? `${postMeta.title} | ${seo.title}` : seo.title
   const description = postMeta.description || seo.description
-  const image = postImage ? `${seo.siteUrl}${postImage}` : seo.image
-  const url = postMeta.slug ? `${seo.siteUrl}/${postMeta.slug}/` : seo.siteUrl
-  const datePublished = isBlogPost ? postMeta.datePublished : false
+  const image = postMeta.image ? `${seo.siteUrl}${postMeta.image}` : null
+  const url = postMeta.slug ? `${seo.siteUrl}${postMeta.slug}/` : seo.siteUrl
 
   return (
     <React.Fragment>
