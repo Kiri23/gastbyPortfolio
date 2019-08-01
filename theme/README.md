@@ -1,3 +1,6 @@
+[![npm version](https://badge.fury.io/js/%40rennehir%2Fgatsby-theme-personal-site.svg)](https://badge.fury.io/js/%40rennehir%2Fgatsby-theme-personal-site)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9053b2e7-233d-48cf-8eb3-f282cf9d1b98/deploy-status)](https://app.netlify.com/sites/gatsby-theme-personal-site/deploys)
+
 # Gatsby Theme for your personal site
 
 This is a Gatsby theme that I built to participate in [Gatsby Theme Jam](https://themejam.gatsbyjs.org).
@@ -8,13 +11,13 @@ See the [live demo](https://gatsby-theme-personal-site.netlify.com)
 
 To use this theme in your Gatsby sites, follow these instructions:
 
-1. Install the theme
+### Install the theme
 
 ```sh
 npm install --save @rennehir/gatsby-theme-personal-site
 ```
 
-2. Add the theme to your `gatsby-config.js`:
+### Add the theme to your `gatsby-config.js`:
 
 ```js
 module.exports = {
@@ -22,9 +25,9 @@ module.exports = {
 }
 ```
 
-3. Add content to the `/content` directory
+### Add content to the `/content` directory
 
-4. Start your site
+### Start your site
 
 ```sh
 gatsby develop
