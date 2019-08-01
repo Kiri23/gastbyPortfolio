@@ -1,58 +1,128 @@
-# Gatsby Theme Jam Submission Example
+[![npm version](https://badge.fury.io/js/%40rennehir%2Fgatsby-theme-personal-site.svg)](https://badge.fury.io/js/%40rennehir%2Fgatsby-theme-personal-site)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9053b2e7-233d-48cf-8eb3-f282cf9d1b98/deploy-status)](https://app.netlify.com/sites/gatsby-theme-personal-site/deploys)
 
-This repo is an example and potential starting point for theme creators.
+# Gatsby Theme for your personal site
 
-It includes:
-- a bare-bones theme (located in `theme/`) that includes basic setup
-- a demo site (located in `demo/`) that installs the theme
-- a Yarn workspaces configuration so the theme and demo can be worked on simultaneously
+This is a Gatsby theme that I built to participate in [Gatsby Theme Jam](https://themejam.gatsbyjs.org).
 
-## How to use this repo
+See the [live demo](https://gatsby-theme-personal-site.netlify.com)
 
-**NOTE:** Make sure to replace `USERNAME` with your GitHub username and `THEMENAME` with your theme name.
+## Installation
 
-1.  Fork this repo.
+To use this theme in your Gatsby sites, follow these instructions:
 
-2.  Rename the forked repo `gatsby-theme-THEMENAME`. (Make sure to replace `THEMENAME` with your chosen name.)
+### Install the theme
 
-3.  Get the theme set up locally.
-    ```sh
-    # clone the repo
-    git clone git@github.com:USERNAME/gatsby-theme-THEMENAME.git
+```sh
+npm install --save @rennehir/gatsby-theme-personal-site
+```
 
-    # move into the directory
-    cd gatsby-theme-THEMENAME
+### Add the theme to your `gatsby-config.js`:
 
-    # install dependencies
-    yarn
-    ```
+```js
+module.exports = {
+  plugins: ["@rennehir/gatsby-theme-personal-site"]
+};
+```
 
-4.  Update `theme/package.json` with your info.
-    ```diff
-      {
-    +   "name": "gatsby-theme-THEMENAME",
-    +   "author": "Your Name <name@example.com>",
-        "repository": {
-          "type": "git",
-    +     "url": "https://github.com/USERNAME/gatsby-theme-THEMENAME.git"
-        },
-    ```
+### Add content to the `/content` directory
 
-5.  Start the demo site.
-    ```sh
-    yarn workspace demo develop
-    ```
+### Start your site
 
-    The demo will start at http://localhost:8000
+```sh
+gatsby develop
+```
 
-    **NOTE:** If you’re new to Yarn workspaces, check out [this post](https://www.gatsbyjs.org/blog/2019-05-22-setting-up-yarn-workspaces-for-theme-development/) for details.
+## Adding content to your site
 
-6.  Start editing the theme! The demo site is configured to use the local theme, so any changes you make to the local `theme` directory will be reflected on the demo site for easy local development.
+This theme follows a content directory structure like this:
 
-7.  Follow the [submission checklist](./theme/README.md#submission-checklist) to make sure your theme qualifies to win!
+```sh
+content
+  +- assets
+  +- blog
+  +- general
+      +- footer
+          +- index.yml
+      +- hero
+          +- index.yml
+  +- portfolio
+  +- references
+  +- services
+```
 
-8.  [Submit your theme](https://themejam.gatsbyjs.org/submit) to win!
+Add all your assets to the `assets` directory and you can reference them from other documents.
 
-## More information
+The `general` directory holds information that is used for example in hero or footer
 
-For contest rules and more information, see [the Theme Jam website](https://themejam.gatsbyjs.org).
+### `content/general/hero/index.yml`
+
+```yaml
+greeting: "Hello, I am"
+name: "Name"
+subtitle: "– a web developer"
+image: "../../assets/{your-image}.svg"
+imageAltText: "Web Developer"
+```
+
+### `content/general/footer/index.yml`
+
+Add urls to your social media profiles
+
+```yaml
+facebook: ""
+github: ""
+linkedin: ""
+twitter: ""
+```
+
+### `content/blog/{post}.mdx`
+
+Put `.mdx` files in this directory to turn them into blog posts. Use these fields in the frontmatter:
+
+```yaml
+---
+title: Hello World
+date: 2019-07-23
+cover: "../assets/{your-image}.jpg"
+---
+
+```
+
+### `content/portfolio/{item}.mdx`
+
+Put `.mdx` files in this directory to turn them into your portfolio items. Use these fields in the frontmatter:
+
+```yaml
+---
+title: "title"
+publishedDate: 2019-02-12
+screenshot: "../assets/{your-image}.png"
+---
+
+```
+
+### `content/references/{ref}.mdx`
+
+Put `.mdx` files in this directory to turn them into references. Use these fields in the frontmatter:
+
+```yaml
+---
+name: Company or person name
+publishedDate: 2019-06-15
+image: "../assets/{your-image}.png"
+---
+
+```
+
+### `content/services/{service}.mdx`
+
+Put `.mdx` files in this directory to turn them into services. Use these fields in the frontmatter:
+
+```yaml
+---
+title: Application Development
+illustration: "../assets/undraw_Mobile_application_mr4r.svg"
+---
+
+```
