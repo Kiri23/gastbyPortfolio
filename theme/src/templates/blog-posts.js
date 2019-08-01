@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
+import SEO from "../components/seo"
 
 import Layout from "../components/layout"
 import Blog from "../components/sections/blog-section"
@@ -8,6 +9,7 @@ import Blog from "../components/sections/blog-section"
 const BlogPostsTemplate = ({ data: { posts } }) => {
   return (
     <Layout>
+      <SEO postMeta={{ title: "Blog" }} />
       <Styled.h1>Blog</Styled.h1>
       <Blog posts={posts.nodes} />
     </Layout>

@@ -11,6 +11,8 @@ import {
 } from "theme-ui"
 import theme from "gatsby-plugin-theme-ui"
 
+import SEO from "../components/seo"
+
 import "@fortawesome/fontawesome-free/css/all.css"
 
 import Navigation from "./navigation"
@@ -27,6 +29,7 @@ const Layout = ({ children, ...props }) => {
             }
           `}
         />
+        <SEO />
         <Header>
           <Navigation />
         </Header>

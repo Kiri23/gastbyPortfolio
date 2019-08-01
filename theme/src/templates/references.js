@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
+import SEO from "../components/seo"
 
 import Layout from "../components/layout"
 import References from "../components/sections/reference-section"
@@ -8,6 +9,7 @@ import References from "../components/sections/reference-section"
 const ReferencesTemplate = ({ data: { references } }) => {
   return (
     <Layout>
+      <SEO postMeta={{ title: "References" }} />
       <Styled.h1>References</Styled.h1>
       <References references={references.nodes} />
     </Layout>

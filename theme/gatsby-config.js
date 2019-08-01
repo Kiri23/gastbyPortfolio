@@ -1,8 +1,12 @@
 module.exports = options => ({
   siteMetadata: {
-    title: "Gatsby Theme Jam Submission for personal site",
+    title: options.siteTitle || "Test",
+    description: options.siteDescription || "Testi",
+    siteUrl: options.siteUrl || "Testiää",
   },
   plugins: [
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-theme-ui`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
@@ -22,7 +26,6 @@ module.exports = options => ({
         remarkPlugins: [require(`remark-slug`)],
       },
     },
-    "gatsby-plugin-theme-ui",
     {
       resolve: "gatsby-source-filesystem",
       options: {

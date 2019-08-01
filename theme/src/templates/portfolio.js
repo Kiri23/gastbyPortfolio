@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx, Styled } from "theme-ui"
 import { graphql } from "gatsby"
+import SEO from "../components/seo"
 
 import Layout from "../components/layout"
 import Portfolio from "../components/sections/portfolio-section"
@@ -8,6 +9,7 @@ import Portfolio from "../components/sections/portfolio-section"
 const PortfolioTemplate = ({ data: { items } }) => {
   return (
     <Layout>
+      <SEO postMeta={{ title: "Portfolio" }} />
       <Styled.h1>Portfolio</Styled.h1>
       <Portfolio items={items.nodes} />
     </Layout>
