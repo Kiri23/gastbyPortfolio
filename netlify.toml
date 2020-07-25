@@ -1,4 +1,4 @@
 [build]
   base = "demo/"
   command = "npm i yarn && yarn && yarn build"
-  publish = "demo/public"
+  publish = "public/"

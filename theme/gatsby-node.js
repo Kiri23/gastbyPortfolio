@@ -40,7 +40,7 @@ const contentPaths = {}
 exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
   const { program } = store.getState()
 
-  basePaths.blogBasePath = themeOptions.blogBasePath || "/blog"
+  // basePaths.blogBasePath = themeOptions.blogBasePath || "/blog"
   basePaths.portfolioBasePath = themeOptions.portfolioBasePath || "/portfolio"
   basePaths.referencesBasePath =
     themeOptions.referencesBasePath || "/references"
@@ -59,13 +59,13 @@ exports.onPreBootstrap = ({ reporter, store }, themeOptions) => {
   const dirs = [
     path.join(program.directory, contentPaths.contentPath),
     path.join(program.directory, contentPaths.assetPath),
-    path.join(program.directory, contentPaths.blogContentPath),
+    // path.join(program.directory, contentPaths.blogContentPath),
     path.join(program.directory, contentPaths.portfolioContentPath),
     path.join(program.directory, contentPaths.referencesContentPath),
     path.join(program.directory, contentPaths.servicesContentPath),
   ]
 
-  dirs.forEach(dir => {
+  dirs.forEach((dir) => {
     reporter.info(`Initializing ${dir} directory`)
     if (!fs.existsSync(dir)) {
       mkdirp.sync(dir)
@@ -83,7 +83,7 @@ exports.sourceNodes = ({ actions, schema }) => {
   ])
 }
 
-exports.onCreateNode = helpers => {
+exports.onCreateNode = (helpers) => {
   const { node } = helpers
   // Create nodes from Mdx files
   if (node.internal.type === `Mdx`) {
@@ -278,16 +278,16 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     },
   })
 
-  // Create blog index page
-  createPage({
-    path: basePaths.blogBasePath,
-    component: BlogPostsTemplate,
-    context: {
-      heading: "Blog",
-      showInNavigation: true,
-      basePaths,
-    },
-  })
+  // // Create blog index page
+  // createPage({
+  //   path: basePaths.blogBasePath,
+  //   component: BlogPostsTemplate,
+  //   context: {
+  //     heading: "Blog",
+  //     showInNavigation: true,
+  //     basePaths,
+  //   },
+  // })
 
   // Create references index page
   createPage({

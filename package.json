@@ -3,5 +3,8 @@
   "workspaces": [
     "theme",
     "demo"
-  ]
+  ],
+  "dependencies": {
+    "@rennehir/gatsby-theme-personal-site": "^1.1.1"
+  }
 }
