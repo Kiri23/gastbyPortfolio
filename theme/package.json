@@ -14,7 +14,7 @@
     "react-dom": "^16.8.6"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.10.0",
+    "@fortawesome/fontawesome-free": "^5.14.0",
     "gatsby": "^2.13.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"

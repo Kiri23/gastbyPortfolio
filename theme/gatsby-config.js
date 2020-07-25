@@ -1,4 +1,4 @@
-module.exports = options => ({
+module.exports = (options) => ({
   siteMetadata: {
     title: options.siteTitle || "Test",
     description: options.siteDescription || "Testi",
