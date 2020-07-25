@@ -21,7 +21,7 @@ npm install --save @rennehir/gatsby-theme-personal-site
 
 ```js
 module.exports = {
-  plugins: ["@rennehir/gatsby-theme-personal-site"]
+  plugins: ["@rennehir/gatsby-theme-personal-site"],
 };
 ```
 
@@ -126,3 +126,5 @@ illustration: "../assets/undraw_Mobile_application_mr4r.svg"
 ---
 
 ```
+
+<!--  -->
